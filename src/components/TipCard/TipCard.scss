@@ -1,104 +1,134 @@
 .tip-card {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: var(--lite);
+  max-width: 650px;
+  width: 100%;
+  cursor: default;
+  height: fit-content;
+  position: relative;
+  gap: 6px;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+
+  &:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+    border-color: var(--primary-200);
+  }
+
+  .top {
+    width: 100%;
     display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding: .3%;
-    background: var(--transparent);
-    max-width: 650px;
+    gap: 8px;
+
+    .results {
+      span {
+        font-weight: 700;
+        font-size: 13px;
+        &.won {
+          color: var(--primary);
+        }
+        &.lost {
+          color: var(--red);
+        }
+        &.pending {
+          color: var(--primary-dark);
+        }
+      }
+    }
+
+    p {
+      width: fit-content;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 3px 8px;
+      z-index: 2;
+      border-radius: var(--r-pill);
+      color: var(--dark);
+    }
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+      border-radius: var(--r-sm);
+      color: var(--primary-dark);
+      transition: background 0.2s ease, color 0.2s ease;
+
+      &:hover {
+        background: var(--primary-50);
+        color: var(--primary);
+      }
+    }
+  }
+
+  .center {
     width: 100%;
-    cursor: default;
-    height: fit-content;
-    position: relative; // required to position the tag absolutely inside
-    gap: 5px;
-    border-top: 1px solid var(--grey);
-    border-radius: 5px;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 0.5rem;
 
-    .top {
+    .teams {
+      display: flex;
+      flex: 1;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+
+      p {
         width: 100%;
+        flex: 1;
         display: flex;
-        flex-direction: row;
         align-items: center;
-        justify-content: space-between;
-        .results {
-            span {
-                font-weight: 800;
-                &.won {
-                    color: var(--primary);
-                }
-                &.lost {
-                    color: var(--red);
-                }
+        justify-content: space-around;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        text-overflow: ellipsis;
+        word-break: break-word;
+        overflow-wrap: break-word;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--dark);
 
-                &.pending {
-                    color: var(--primary-dark);
-                }
-            }
+        &:first-child {
+          text-align: end;
         }
-        p{
-            width: fit-content;
-            font-size: 12px;
-            padding: 2px 2px;
-            z-index: 2;
+
+        &.hidden {
+          color: transparent;
+          text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
         }
-    }
+      }
 
-
-    .center {
-        width: 100%;
-        height: 100%;
+      .results {
+        min-width: 56px;
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
         display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        gap: .5rem;
-
-        .teams {
-            display: flex;
-            //width: 100%;
-            flex: 1;
-            gap: 5px;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            p {
-                width: 100%;
-                flex: 1;
-                display: flex;
-                align-items: center;
-                justify-content: space-around;
-                flex: 1;
-                overflow: hidden;
-                /* Hide overflow content */
-                display: -webkit-box;
-                /* Use the flexbox model for a multi-line block */
-                -webkit-line-clamp: 2;
-                /* Show only 3 lines of text */
-                -webkit-box-orient: vertical;
-                /* Set the box to be vertical */
-                text-overflow: ellipsis;
-               /* Add these two lines 👇 */
-                word-break: break-word;
-                overflow-wrap: break-word;
-
-                &:first-child {
-                        text-align: end;
-                }
-
-                &.hidden {
-                        color: transparent;
-                        text-shadow: 0 0 5px rgba(0, 0, 0, .8)
-                }
-            }
-            .results {
-                width: 50px;
-                background: var(--primary);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                color: var(--lite);
-                padding: 0;
-            }
-        }
+        align-items: center;
+        justify-content: center;
+        color: var(--lite);
+        padding: 6px 8px;
+        border-radius: var(--r-sm);
+        font-size: 12px;
+        font-weight: 700;
+        box-shadow: var(--shadow-sm);
+      }
     }
+  }
 }

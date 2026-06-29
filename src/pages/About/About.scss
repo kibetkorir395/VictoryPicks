@@ -1,50 +1,60 @@
-@keyframes  App-logo-spin{
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-}
+.about {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  background: linear-gradient(to bottom, var(--lite), var(--primary-50));
 
-.about{
+  .about-us {
     width: 100%;
-    height: 100%;
+    max-width: 900px;
+    height: 80%;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: 5px;
-    background: linear-gradient(to bottom, var(--lite), var(--transparent),  var(--light-blue));
-    .about-us{
-        //background: var(--transparent);
-        height: 80%;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .info {
+      width: 100%;
+      padding: 18px 16px;
+      background: var(--lite);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--r-lg);
+      box-shadow: var(--shadow-sm);
+      font-weight: 400;
+      line-height: 1.8;
+
+      h1 {
+        width: 100%;
+        text-align: start;
+        font-size: 20px;
+        letter-spacing: 1px;
+        margin-top: 14px;
+        margin-bottom: 6px;
+        color: var(--primary-dark);
+      }
+
+      p {
+        color: var(--dark-2);
+        font-size: 15px;
+        line-height: 1.7;
+      }
+
+      .links {
         display: flex;
         align-items: center;
-        flex-direction: column;
-        justify-content: space-between;
-        //background: linear-gradient(to bottom, var(--light-blue), var(--light-blue));
+        justify-content: flex-start;
+        gap: 12px;
+        margin: 18px 0 6px;
 
-        .info{
-            margin-left: 10px;
-            font-weight: 500;
-            line-height: 3rem;
-            h1{
-                width: 100%;
-                text-align: start;
-            }
-            .links{
-                display: flex;
-                align-items: center;
-                justify-content: space-evenly;
-                margin: 5px 0;
-
-
-                a{
-                    padding: 0 5px;
-                    height: fit-content;
-              }
-            }
+        a {
+          padding: 8px 18px;
+          height: fit-content;
         }
+      }
     }
+  }
 }

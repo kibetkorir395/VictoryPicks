@@ -1,70 +1,87 @@
-.pay{
+.pay {
+  width: 100%;
+  min-height: calc(100vh - 95px);
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  gap: 14px;
+  padding: 24px 12px;
+  background:
+    radial-gradient(600px 300px at 50% 0%, rgba(5, 146, 18, 0.08), transparent 60%),
+    linear-gradient(to bottom, var(--lite), var(--primary-50));
+
+  h4 {
+    text-align: center;
+    color: var(--dark-2);
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .btn {
+    margin-top: 6px;
+  }
+
+  form.method {
     width: 100%;
-    min-height: calc(100vh - 95px);
+    max-width: 800px;
+    gap: 18px;
     display: flex;
-    align-items: center;
-    justify-content: space-evenly;
     flex-direction: column;
-    background: linear-gradient(to bottom, var(--transparent), var(--light-blue));
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
 
-    h4{
-      text-align: center;
-    }
+    fieldset {
+      width: 100%;
+      max-width: 280px;
+      padding: 0;
+      border: 0;
+      position: relative;
+      display: flex;
+      justify-content: space-between;
 
-    form.method{
+      label {
+        text-transform: uppercase;
+        letter-spacing: 0.08rem;
+        background: var(--bg-soft);
+        text-align: center;
+        padding: 0.7em;
+        cursor: pointer;
         width: 100%;
-        max-width: 800px;
-        gap: 30px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 5px 5px;
+        border-radius: var(--r-md);
+        border: 1px solid var(--border);
+        position: relative;
+        z-index: 1;
+        font-weight: 600;
+        font-size: 13px;
+        color: var(--dark-2);
+        transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
 
-        fieldset{
-            width: 100%;
-            max-width: 250px;
-            padding: 0;
-            border: 0;
-            position: relative;
-            display: flex;
-            justify-content: space-between;
-            label{
-                text-transform: uppercase;
-                letter-spacing: .1rem;
-                background: #E8E8E8;
-                text-align: center;
-                padding: .5em;
-                cursor: pointer;
-                width: 100%;
-                border-radius: .5rem;
-                border: 1px solid #ccc;
-                position: relative;
-                z-index: 1;
-
-                &:hover{
-                    background: #D8D8D8;
-                }
-              }
-
-
-              input[type="radio"]{
-                visibility: hidden;
-                position: absolute;
-                cursor: pointer;
-              }
-              input[type="radio"]:checked{
-                ~ label{
-                  background: var(--primary-dark);
-                  color: var(--lite);
-                  box-shadow: 0 0.2em 0.45em 0.1em rgba(0,0,0, 0.4);
-                  transform: scale(1.05);
-                  animation: checked 200ms 1;
-                  border: 1px solid var(--primary-dark);
-                  position: relative;
-                  z-index: 5;
-                }
-              }
+        &:hover {
+          background: var(--primary-50);
+          color: var(--primary-dark);
+          border-color: var(--primary-200);
         }
+      }
+
+      input[type="radio"] {
+        visibility: hidden;
+        position: absolute;
+        cursor: pointer;
+      }
+
+      input[type="radio"]:checked {
+        ~ label {
+          background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+          color: var(--lite);
+          box-shadow: var(--shadow-primary);
+          transform: scale(1.03);
+          border: 1px solid var(--primary-dark);
+          position: relative;
+          z-index: 5;
+        }
+      }
     }
+  }
 }

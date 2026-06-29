@@ -1,60 +1,90 @@
-.auth{
-    position: relative;
-    width: 100%;
-    height: calc(100vh - 100px);
+.auth {
+  position: relative;
+  width: 100%;
+  min-height: calc(100vh - 100px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 12px;
+  background:
+    radial-gradient(600px 300px at 50% 0%, rgba(5, 146, 18, 0.08), transparent 60%),
+    linear-gradient(to bottom, var(--lite), var(--primary-50));
+
+  form {
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background: linear-gradient(to bottom, var(--transparent), var(--lite),  var(--transparent),  var(--light-blue));
+    align-items: stretch;
+    flex-direction: column;
+    width: 100%;
+    max-width: 420px;
+    padding: 28px 24px;
+    background: var(--lite);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--r-xl);
+    box-shadow: var(--shadow-lg);
 
-    form{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        width: 100%;
-        max-width: 400px;
-
-        padding: 10px 10px;
-
-        label{
-            width: 100%;
-            text-align: start;
-            padding: 0 5px;
-        }
-
-        input{
-            width: 100%;
-            height: 40px;
-            padding-left: 25px;
-            margin-bottom: 5px;
-            font-size: 13px;
-            letter-spacing: 0.15px;
-            border: none;
-            outline: none;
-            background: var(--light-blue);
-            transition: 0.25s ease;
-            border-radius: 8px;
-            box-shadow: inset 2px 2px 4px #d1d9e6, inset -2px -2px 4px #f9f9f9;
-
-            &:focus{
-                box-shadow: inset 4px 4px 4px #d1d9e6, inset -4px -4px 4px #f9f9f9;
-            }
-        }
-
+    h1 {
+      letter-spacing: 1px;
+      margin-bottom: 18px;
     }
 
-
-
-    span{
-        margin-top: 10px;
-        margin-bottom: 10px;
-        a{
-            color: var(--primary);
-        }
+    label {
+      width: 100%;
+      text-align: start;
+      padding: 6px 4px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--dark-2);
     }
+
+    input {
+      width: 100%;
+      height: 44px;
+      padding: 0 14px;
+      margin-bottom: 8px;
+      font-size: 14px;
+      letter-spacing: 0.15px;
+      border: 1px solid var(--border);
+      outline: none;
+      background: var(--bg-soft);
+      transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+      border-radius: var(--r-md);
+
+      &:focus {
+        border-color: var(--primary);
+        background: var(--lite);
+        box-shadow: 0 0 0 3px rgba(5, 146, 18, 0.12);
+      }
+    }
+
+    span {
+      font-size: 12px;
+      color: var(--grey);
+      margin: -2px 4px 10px;
+      line-height: 1.5;
+    }
+
+    .btn {
+      width: 100%;
+      margin-top: 8px;
+    }
+  }
+
+  > span {
+    margin-top: 18px;
+    margin-bottom: 10px;
+    color: var(--grey);
+    font-size: 14px;
+
+    a {
+      color: var(--primary);
+      font-weight: 600;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
 }

@@ -1,12 +1,25 @@
-.not-found{
-    width: inherit;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    flex-direction: column;
-    background: linear-gradient(to bottom, var(--lite), var(--transparent),  var(--light-blue));
-    > h2{
-        color: var(--red);
-    }
+.not-found {
+  width: inherit;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  gap: 10px;
+  background:
+    radial-gradient(600px 300px at 50% 30%, rgba(231, 76, 60, 0.08), transparent 60%),
+    linear-gradient(to bottom, var(--lite), var(--primary-50));
+
+  h1 {
+    font-size: 64px;
+    letter-spacing: 6px;
+    color: var(--primary-dark);
+  }
+
+  > h2 {
+    color: var(--red);
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
 }
