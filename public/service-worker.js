@@ -1,98 +1,114 @@
-const CACHE_NAME = 'goal-genius-cache';
-const urlsToCache = [
-    '/',
-    '/index.html',
-    '/manifest.json',
-    '*'
+const CACHE_VERSION = 'v3';
+const STATIC_CACHE = `flash-tips-static-${CACHE_VERSION}`;
+const RUNTIME_CACHE = `flash-tips-runtime-${CACHE_VERSION}`;
+const OFFLINE_URL = '/index.html';
+
+const PRECACHE_URLS = [
+  '/',
+  '/index.html',
+  '/manifest.json',
+  '/favicon.ico',
+  '/logo192.png',
+  '/logo512.png',
+  '/logo32.png',
+  '/logo16.png',
 ];
 
-
-// Install event: Cache specified resources
 self.addEventListener('install', (event) => {
-    event.waitUntil(
-        caches.open(CACHE_NAME).then((cache) => {
-            return cache.addAll(urlsToCache);
-        }).then(() => self.skipWaiting())
-    );
+  event.waitUntil(
+    caches
+      .open(STATIC_CACHE)
+      .then((cache) => cache.addAll(PRECACHE_URLS))
+      .then(() => self.skipWaiting())
+  );
 });
 
-// Activate event: Claim clients immediately
 self.addEventListener('activate', (event) => {
-    event.waitUntil(
-        caches.keys().then((cacheNames) => {
-            return Promise.all(
-                cacheNames.map((cacheName) => {
-                    if (cacheName !== CACHE_NAME) {
-                        return caches.delete(cacheName);
-                    }
-                })
-            );
-        }).then(() => self.clients.claim())
-    );
+  event.waitUntil(
+    caches
+      .keys()
+      .then((cacheNames) =>
+        Promise.all(
+          cacheNames
+            .filter((name) => name !== STATIC_CACHE && name !== RUNTIME_CACHE)
+            .map((name) => caches.delete(name))
+        )
+      )
+      .then(() => self.clients.claim())
+  );
 });
 
-// Fetch event: Serve from cache, fallback to network
 self.addEventListener('fetch', (event) => {
-    // Only handle GET requests
-    if (event.request.method !== 'GET') {
-        return;
-    }
+  const { request } = event;
 
+  if (request.method !== 'GET') return;
+
+  const url = new URL(request.url);
+
+  // Skip cross-origin requests (e.g. analytics, payment scripts, fonts)
+  if (url.origin !== self.location.origin) return;
+
+  // Skip non-http(s) schemes
+  if (!url.protocol.startsWith('http')) return;
+
+  // Navigation requests: network-first with offline fallback
+  if (request.mode === 'navigate') {
     event.respondWith(
-        caches.match(event.request).then((response) => {
-            if (response) {
-                // Serve from cache
-                return response;
-            }
-
-            // Fetch from network and cache the response
-            return fetch(event.request).then((networkResponse) => {
-                if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
-                    return networkResponse;
-                }
-
-                const responseToCache = networkResponse.clone();
-
-                caches.open(CACHE_NAME).then((cache) => {
-                    cache.put(event.request, responseToCache);
-                });
-
-                return networkResponse;
-            });
-        }).catch(() => {
-            // Optional: Provide offline fallback for failed requests
-            return //caches.match('/fallback.html');
+      fetch(request)
+        .then((response) => {
+          const copy = response.clone();
+          caches.open(RUNTIME_CACHE).then((cache) => cache.put(request, copy));
+          return response;
         })
+        .catch(() =>
+          caches.match(request).then((cached) => cached || caches.match(OFFLINE_URL))
+        )
     );
+    return;
+  }
+
+  // Static assets: cache-first with network fallback
+  event.respondWith(
+    caches.match(request).then((cached) => {
+      if (cached) return cached;
+      return fetch(request)
+        .then((response) => {
+          if (!response || response.status !== 200 || response.type !== 'basic') {
+            return response;
+          }
+          const copy = response.clone();
+          caches.open(RUNTIME_CACHE).then((cache) => cache.put(request, copy));
+          return response;
+        })
+        .catch(() => cached);
+    })
+  );
 });
 
+self.addEventListener('message', (event) => {
+  if (event.data === 'SKIP_WAITING') self.skipWaiting();
+});
 
-// Notification click handler (optional)
 self.addEventListener('notificationclick', (event) => {
-    event.notification.close(); // Close the notification
-    event.waitUntil(
-        self.clients.matchAll({ type: 'window' }).then((clientList) => {
-            // Check if the app is already open in a window
-            for (let client of clientList) {
-                if (client.url === '/' && 'focus' in client) {
-                    return client.focus();
-                }
-            }
-            // If not open, open a new window
-            if (self.clients.openWindow) {
-                return self.clients.openWindow('/');
-            }
-        })
-    );
+  event.notification.close();
+  event.waitUntil(
+    self.clients.matchAll({ type: 'window' }).then((clientList) => {
+      for (let client of clientList) {
+        if (client.url === '/' && 'focus' in client) return client.focus();
+      }
+      if (self.clients.openWindow) return self.clients.openWindow('/');
+    })
+  );
 });
 
-// Push event handler (optional for push notifications)
 self.addEventListener('push', (event) => {
-    const data = event.data ? event.data.text() : 'Default notification content';
-    const options = {
-        body: data,
-        icon: '/logo512.png',
-        badge: '/logo128.png'
-    };
-    event.waitUntil(self.registration.showNotification("FLASH TIPS", options));
+  const data = event.data ? event.data.text() : 'New VIP tips available!';
+  const options = {
+    body: data,
+    icon: '/logo512.png',
+    badge: '/logo128.png',
+    vibrate: [100, 50, 100],
+    data: { url: '/' },
+  };
+  event.waitUntil(self.registration.showNotification('FLASH TIPS', options));
 });

@@ -1,13 +1,15 @@
 # Allow all bots
 User-agent: *
-Disallow:
+Allow: /
+Allow: /about
+
+# Restrict access to private/admin areas
+Disallow: /add-tip
+Disallow: /edit-tip
+Disallow: /users
+Disallow: /login
+Disallow: /register
+Disallow: /subscribe
 
 # Specify the sitemap location
 Sitemap: https://flashviptips.onrender.com/sitemap.xml
-
-# (Optional) Restrict access to certain areas
-Disallow: /add-post/
-Disallow: /edit-post/
-Disallow: /add-tip/
-Disallow: /edit-tip/
-Disallow: /users/

@@ -7,13 +7,33 @@ import Loader from '../../components/Loader/Loader';
 import { pricings } from '../../data';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { notificationState, subscriptionState, userState } from '../../recoil/atoms';
-import KoraPayment from 'kora-checkout';
 import { getUser, updateUser } from '../../firebase';
 import { useCurrency } from '../../context/CurrencyContext';
+
+const KORA_SCRIPT = 'https://korablobstorage.blob.core.windows.net/modal-bucket/korapay-collections.min.js';
+
+function loadKoraScript() {
+  return new Promise((resolve, reject) => {
+    if (window.Korapay) return resolve();
+    const existing = document.querySelector(`script[src="${KORA_SCRIPT}"]`);
+    if (existing) {
+      existing.addEventListener('load', () => resolve());
+      existing.addEventListener('error', () => reject(new Error('Failed to load Kora script')));
+      return;
+    }
+    const script = document.createElement('script');
+    script.src = KORA_SCRIPT;
+    script.async = true;
+    script.onload = () => resolve();
+    script.onerror = () => reject(new Error('Failed to load Kora script'));
+    document.body.appendChild(script);
+  });
+}
 
 export default function Subscription() {
   const [user, setUser] = useRecoilState(userState);
   const [loading, setLoading] = useState(false);
+  const [paying, setPaying] = useState(false);
   const location = useLocation();
   const [data, setData] = useState(null);
   const setNotification = useSetRecoilState(notificationState);
@@ -54,24 +74,43 @@ export default function Subscription() {
       .then(() => navigate('/', { replace: true }));
   };
 
-  const handlePayment = () => {
-    const amount = data != null ? data.price : convertPrice(subscription.price);
-    const payCurrency = (data != null ? data.currency : symbol) === '₦' ? 'NGN' : 'KES';
-    const paymentOptions = {
-      key: 'pk_live_v3G6gawdvs1ugJmqo3cfQaGJS5njbJTrjLyxT2gB',
-      reference: new Date().getTime().toString(),
-      amount,
-      currency: payCurrency,
-      customer: {
-        name: user ? user.email : 'coongames8@gmail.com',
-        email: user ? user.email : 'coongames8@gmail.com',
-      },
-      onSuccess: () => handleUpgrade(),
-      onFailed: (err) => console.error(err.message),
-    };
+  const handlePayment = async () => {
+    setPaying(true);
+    try {
+      await loadKoraScript();
+      const amount = data != null ? data.price : convertPrice(subscription.price);
+      const paySymbol = data != null ? data.currency : symbol;
+      const payCurrency = paySymbol === '₦' ? 'NGN' : 'KES';
+      const customerEmail = user ? user.email : 'coongames8@gmail.com';
 
-    const payment = new KoraPayment();
-    payment.initialize(paymentOptions);
+      window.Korapay.initialize({
+        key: 'pk_live_v3G6gawdvs1ugJmqo3cfQaGJS5njbJTrjLyxT2gB',
+        reference: new Date().getTime().toString(),
+        amount,
+        currency: payCurrency,
+        customer: {
+          name: customerEmail,
+          email: customerEmail,
+        },
+        onSuccess: () => handleUpgrade(),
+        onFailed: (err) => {
+          setNotification({
+            isVisible: true,
+            type: 'error',
+            message: (err && err.message) || 'Payment failed. Please try again.',
+          });
+        },
+        onClose: () => {},
+      });
+    } catch (err) {
+      setNotification({
+        isVisible: true,
+        type: 'error',
+        message: err.message || 'Could not start payment.',
+      });
+    } finally {
+      setPaying(false);
+    }
   };
 
   const displaySymbol = data?.currency || symbol;
@@ -99,16 +138,12 @@ export default function Subscription() {
             <li>Expert analysis & live updates</li>
             <li>Secure payment via Kora</li>
           </ul>
-          <button onClick={handlePayment} className="btn">
-            Pay Now
+          <button onClick={handlePayment} className="btn" disabled={paying}>
+            {paying ? 'Starting...' : 'Pay Now'}
           </button>
-          <p className="secure-note">Secured by Kora • {payCurrencyLabel(displaySymbol)}</p>
+          <p className="secure-note">Secured by Kora • {displaySymbol === '₦' ? 'NGN' : 'KES'}</p>
         </div>
       )}
     </div>
   );
-}
-
-function payCurrencyLabel(symbol) {
-  return symbol === '₦' ? 'NGN' : 'KES';
 }

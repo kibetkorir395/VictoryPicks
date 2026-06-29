@@ -26,6 +26,7 @@ import ProtectedAdminRoute from './utils/ProtectedAdminRoute';
 import { checkSubscriptionStatus } from './utils/subscription';
 import Subscription from './pages/Pay/Subscription';
 import Notification from './components/Notification/Notification';
+import InstallPrompt from './components/InstallPrompt/InstallPrompt';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -87,6 +88,7 @@ function App() {
               <IoArrowUp />
             </button>
           )}
+          <InstallPrompt />
           <Footer />
         </>
       )}
