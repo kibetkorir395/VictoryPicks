@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, sendPasswordResetEmail, confirmPasswordReset, verifyPasswordResetCode } from "firebase/auth";
 import { collection, doc, getDoc, getDocs, getFirestore, query, updateDoc, where, setDoc } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -33,6 +33,43 @@ export const signInUser = (email, password, setNotification) => {
   });
   return;
 }
+
+export const sendPasswordReset = async (email, setNotification, setResetSent) => {
+  try {
+    await sendPasswordResetEmail(auth, email);
+    setNotification({
+      isVisible: true,
+      type: 'success',
+      message: "Password reset link sent. Check your inbox.",
+    });
+    if (setResetSent) setResetSent(true);
+  } catch (error) {
+    setNotification({
+      isVisible: true,
+      type: 'error',
+      message: error.message,
+    });
+  }
+};
+
+export const confirmReset = async (code, newPassword, setNotification, setDone) => {
+  try {
+    const email = await verifyPasswordResetCode(auth, code);
+    await confirmPasswordReset(auth, code, newPassword);
+    setNotification({
+      isVisible: true,
+      type: 'success',
+      message: `Password reset successful for ${email}. You can now sign in.`,
+    });
+    if (setDone) setDone(true);
+  } catch (error) {
+    setNotification({
+      isVisible: true,
+      type: 'error',
+      message: error.message,
+    });
+  }
+};
 
 export const registerUser = (username, email, password, setNotification) => {
   createUserWithEmailAndPassword(auth, email, password).then(async (userCredential) => {

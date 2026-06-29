@@ -69,6 +69,41 @@
       width: 100%;
       margin-top: 8px;
     }
+
+    .link-btn {
+      width: 100%;
+      margin-top: 10px;
+      padding: 6px;
+      background: transparent;
+      border: none;
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: var(--primary-dark);
+        text-decoration: underline;
+      }
+    }
+
+    .reset-info {
+      padding: 12px 14px;
+      background: var(--primary-50);
+      border: 1px solid var(--primary-200);
+      border-radius: var(--r-md);
+      color: var(--primary-dark);
+      font-size: 14px;
+      line-height: 1.6;
+      text-align: center;
+      margin: 6px 0 10px;
+
+      strong {
+        color: var(--primary-dark);
+      }
+    }
   }
 
   > span {

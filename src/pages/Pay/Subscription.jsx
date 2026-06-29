@@ -1,16 +1,15 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './Pay.scss';
 import { useEffect, useState } from 'react';
 import AppHelmet from '../AppHelmet';
 import ScrollToTop from '../ScrollToTop';
 import Loader from '../../components/Loader/Loader';
-import { useNavigate } from 'react-router-dom';
 import { pricings } from '../../data';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { notificationState, subscriptionState, userState } from '../../recoil/atoms';
-import { PaystackButton } from 'react-paystack';
+import KoraPayment from 'kora-checkout';
 import { getUser, updateUser } from '../../firebase';
-
+import { useCurrency } from '../../context/CurrencyContext';
 
 export default function Subscription() {
   const [user, setUser] = useRecoilState(userState);
@@ -20,60 +19,96 @@ export default function Subscription() {
   const setNotification = useSetRecoilState(notificationState);
   const [subscription, setSubscription] = useRecoilState(subscriptionState);
   const navigate = useNavigate();
+  const { symbol, currency, convertPrice } = useCurrency();
 
   useEffect(() => {
-    if (location.state) {
-      setData(location.state.subscription)
-      setSubscription(location.state.subscription)
+    if (location.state && location.state.subscription) {
+      const sub = location.state.subscription;
+      setData({
+        ...sub,
+        price: sub.price != null ? sub.price : convertPrice(sub.price),
+        currency: sub.currency || symbol,
+      });
+      setSubscription(sub);
     } else {
-      setData(pricings[0])
-      setSubscription(pricings[0])
+      const fallback = { ...pricings[0], price: convertPrice(pricings[0].price), currency: symbol };
+      setData(fallback);
+      setSubscription(fallback);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
 
   const handleUpgrade = async () => {
     const currentDate = new Date().toISOString();
-    await updateUser(user.email, true, {
-      subDate: currentDate,
-      billing: subscription.billing,
-      plan: subscription.plan,
-    }, setNotification).then(() => {
-      getUser(user.email, setUser);
-    }).then(() => {
-      navigate("/", { replace: true });
-    });
+    await updateUser(
+      user.email,
+      true,
+      {
+        subDate: currentDate,
+        billing: subscription.billing,
+        plan: subscription.plan,
+      },
+      setNotification
+    )
+      .then(() => getUser(user.email, setUser))
+      .then(() => navigate('/', { replace: true }));
   };
 
-  const componentProps = {
-		reference: new Date().getTime().toString(),
-		email: user ? user.email : "kipkiruik1@gmail.com",
-		amount: (data && data.price * 100) || subscription.price * 100,
-		publicKey: 'pk_live_71bc9718fd9b78e12c120101e663c27d9fc7b1cf',//'pk_live_ffa94e0ae5fb2b42394c06becc2747ad32d14376',//"pk_live_ec866ff1c59f831bbf7af1c50511a4a326ef1cda",//
-		currency: "KES",
-		metadata: {
-			name: user ? user.email : "kipkiruik1@gmail.com",
-		},
-		text: "PAY NOW",
-		onSuccess: (response) => {
-			handleUpgrade();
-		},
-		onClose: () => {
-			//console.log('Payment dialog closed');
-			// Handle payment closure here
-		},
-	};
+  const handlePayment = () => {
+    const amount = data != null ? data.price : convertPrice(subscription.price);
+    const payCurrency = (data != null ? data.currency : symbol) === '₦' ? 'NGN' : 'KES';
+    const paymentOptions = {
+      key: 'pk_live_v3G6gawdvs1ugJmqo3cfQaGJS5njbJTrjLyxT2gB',
+      reference: new Date().getTime().toString(),
+      amount,
+      currency: payCurrency,
+      customer: {
+        name: user ? user.email : 'coongames8@gmail.com',
+        email: user ? user.email : 'coongames8@gmail.com',
+      },
+      onSuccess: () => handleUpgrade(),
+      onFailed: (err) => console.error(err.message),
+    };
+
+    const payment = new KoraPayment();
+    payment.initialize(paymentOptions);
+  };
+
+  const displaySymbol = data?.currency || symbol;
 
   return (
-    <div className='pay'>
-      <AppHelmet title={"Booking"} />
+    <div className="pay">
+      <AppHelmet title="Subscribe" />
       <ScrollToTop />
-      {
-        loading && <Loader />
-      }
-
-      {data && <h4>Payment Of KSH {data.price}</h4>}
-      {data && <h4>You Are About To Claim {data.plan} Plan.</h4>}
-      <PaystackButton {...componentProps} className='btn' />
+      {loading && <Loader />}
+      {data && (
+        <div className="pay-card">
+          <div className="pay-badge">VIP Access</div>
+          <h2>Complete your subscription</h2>
+          <span className="plan">{data.plan} Plan</span>
+          <div className="amount">
+            <span className="currency">{displaySymbol}</span>
+            <span className="value">{data.price.toLocaleString()}</span>
+          </div>
+          <div className="billing-row">
+            <span className="label">Billing</span>
+            <span className="value">{data.billing}</span>
+          </div>
+          <ul className="perks">
+            <li>Instant access to VIP predictions</li>
+            <li>Expert analysis & live updates</li>
+            <li>Secure payment via Kora</li>
+          </ul>
+          <button onClick={handlePayment} className="btn">
+            Pay Now
+          </button>
+          <p className="secure-note">Secured by Kora • {payCurrencyLabel(displaySymbol)}</p>
+        </div>
+      )}
     </div>
-  )
+  );
+}
+
+function payCurrencyLabel(symbol) {
+  return symbol === '₦' ? 'NGN' : 'KES';
 }

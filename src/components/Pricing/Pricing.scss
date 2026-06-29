@@ -7,6 +7,13 @@
     margin-bottom: 4px;
   }
 
+  .subhead {
+    color: var(--grey);
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+
   .pricing-header {
     display: flex;
     align-items: center;
@@ -97,10 +104,20 @@
 
       h2 {
         margin: 6px 0;
+        display: flex;
+        align-items: baseline;
+        gap: 4px;
+
         span {
           font-weight: 800;
           font-size: 28px;
           color: var(--primary-dark);
+        }
+
+        .period {
+          font-size: 14px;
+          font-weight: 500;
+          color: var(--grey);
         }
       }
 

@@ -9,12 +9,13 @@ import { useRecoilState } from 'recoil';
 import { userState } from '../../recoil/atoms';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../firebase';
-
+import { useCurrency } from '../../context/CurrencyContext';
 
 const Navbar = () => {
     const [opened, setOpened] = useState(false)
     const [user, setUser] = useRecoilState(userState);
     const location = useLocation();
+    const { currency, setCurrency, options } = useCurrency();
 
     const handleLogout = () => {
         signOut(auth);
@@ -22,7 +23,6 @@ const Navbar = () => {
     }
 
     const handleToggle = () => {
-        //document.querySelector('#menu-bars').classList.toggle('displayed');
         setOpened(!opened);
         document.querySelector('nav').classList.toggle('active');
     }
@@ -42,6 +42,19 @@ const Navbar = () => {
             </NavLink>
             <nav>
                 <div className="btn-container">
+                    <div className="currency-switch" role="group" aria-label="Select currency">
+                        {Object.values(options).map((opt) => (
+                            <button
+                                key={opt.code}
+                                type="button"
+                                className={`currency-chip ${currency === opt.code ? 'active' : ''}`}
+                                onClick={() => setCurrency(opt.code)}
+                                title={opt.code}
+                            >
+                                {opt.label}
+                            </button>
+                        ))}
+                    </div>
                     {
                         user ? <span className='btn' onClick={() => {
                             handleLogout()
