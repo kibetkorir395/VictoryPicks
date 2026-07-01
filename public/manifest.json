@@ -2,7 +2,7 @@
   "id": "/",
   "short_name": "VICTORY PICKS",
   "name": "VICTORY PICKS — Football Predictions & VIP Tips",
-  "homepage": "https://flashviptips.onrender.com/",
+  "homepage": "https://victorypicks.onrender.com/",
   "version": "1.0.0",
   "description": "Expert football predictions, VIP tips, live scores and the latest betting odds for top leagues worldwide.",
   "icons": [
@@ -46,7 +46,7 @@
   ],
   "developer": {
     "name": "VICTORY PICKS",
-    "url": "https://flashviptips.onrender.com/"
+    "url": "https://victorypicks.onrender.com/"
   },
   "repository": {
     "type": "git",

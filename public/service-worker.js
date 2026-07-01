@@ -1,6 +1,6 @@
 const CACHE_VERSION = 'v3';
-const STATIC_CACHE = `flash-tips-static-${CACHE_VERSION}`;
-const RUNTIME_CACHE = `flash-tips-runtime-${CACHE_VERSION}`;
+const STATIC_CACHE = `victory-picks-static-${CACHE_VERSION}`;
+const RUNTIME_CACHE = `victory-picks-runtime-${CACHE_VERSION}`;
 const OFFLINE_URL = '/index.html';
 
 const PRECACHE_URLS = [
