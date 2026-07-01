@@ -3,37 +3,37 @@ import { useLocation } from 'react-router-dom';
 
 const PAGE_META = {
   '': {
-    title: 'FLASH TIPS — Expert Football Predictions & VIP Tips',
+    title: 'VICTORY PICKS — Expert Football Predictions & VIP Tips',
     description:
       'Get expert football tips, accurate match predictions, VIP picks, live scores and the latest betting odds. Stay updated with fixtures and results from top leagues worldwide.',
     type: 'website',
   },
   subscribe: {
-    title: 'Subscribe — VIP Football Predictions | FLASH TIPS',
+    title: 'Subscribe — VIP Football Predictions | VICTORY PICKS',
     description:
-      'Subscribe to FLASH TIPS for VIP football predictions, expert analysis and live updates. Choose daily, weekly or monthly plans. Pay securely in KES or NGN.',
+      'Subscribe to VICTORY PICKS for VIP football predictions, expert analysis and live updates. Choose daily, weekly or monthly plans. Pay securely in KES or NGN.',
     type: 'product',
   },
   about: {
-    title: 'About FLASH TIPS — Football Predictions & Expert Analysis',
+    title: 'About VICTORY PICKS — Football Predictions & Expert Analysis',
     description:
-      'Learn about FLASH TIPS — your destination for accurate football predictions, expert analysis, live scores and real-time updates across major leagues and competitions.',
+      'Learn about VICTORY PICKS — your destination for accurate football predictions, expert analysis, live scores and real-time updates across major leagues and competitions.',
     type: 'website',
   },
   login: {
-    title: 'Sign In | FLASH TIPS',
-    description: 'Sign in to your FLASH TIPS account to access VIP football predictions and expert analysis.',
+    title: 'Sign In | VICTORY PICKS',
+    description: 'Sign in to your VICTORY PICKS account to access VIP football predictions and expert analysis.',
     type: 'website',
   },
   register: {
-    title: 'Create Account | FLASH TIPS',
-    description: 'Register for a FLASH TIPS account to start receiving expert football predictions and VIP tips.',
+    title: 'Create Account | VICTORY PICKS',
+    description: 'Register for a VICTORY PICKS account to start receiving expert football predictions and VIP tips.',
     type: 'website',
   },
 };
 
 const DEFAULT_META = {
-  title: 'FLASH TIPS — Expert Football Predictions & VIP Tips',
+  title: 'VICTORY PICKS — Expert Football Predictions & VIP Tips',
   description:
     'Get expert football tips, accurate match predictions, VIP picks, live scores and the latest betting odds from top leagues worldwide.',
   type: 'website',
@@ -43,7 +43,7 @@ export default function AppHelmet({ title }) {
   const location = useLocation();
   const path = location.pathname.replace(/^\//, '').replace(/\/$/, '');
   const meta = PAGE_META[path] || DEFAULT_META;
-  const fullTitle = title ? `${title} | FLASH TIPS` : meta.title;
+  const fullTitle = title ? `${title} | VICTORY PICKS` : meta.title;
   const canonicalUrl = `${window.location.origin}${location.pathname}`;
   const logoUrl = `${window.location.origin}/logo512.png`;
 
@@ -54,7 +54,7 @@ export default function AppHelmet({ title }) {
       <meta name="description" content={meta.description} />
       <link rel="canonical" href={canonicalUrl} />
 
-      <meta property="og:site_name" content="FLASH TIPS" />
+      <meta property="og:site_name" content="VICTORY PICKS" />
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={meta.description} />
       <meta property="og:image" content={logoUrl} />

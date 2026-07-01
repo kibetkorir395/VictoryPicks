@@ -50,7 +50,7 @@ export default function InstallPrompt() {
           <IoDownloadOutline />
         </div>
         <div className="install-text">
-          <strong>Install FLASH TIPS</strong>
+          <strong>Install VICTORY PICKS</strong>
           <span>Quick access to VIP predictions & live tips</span>
         </div>
         <button type="button" className="install-btn" onClick={handleInstall}>

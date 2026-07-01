@@ -1,7 +1,7 @@
 {
   "id": "/",
-  "short_name": "FLASH TIPS",
-  "name": "FLASH TIPS — Football Predictions & VIP Tips",
+  "short_name": "VICTORY PICKS",
+  "name": "VICTORY PICKS — Football Predictions & VIP Tips",
   "homepage": "https://flashviptips.onrender.com/",
   "version": "1.0.0",
   "description": "Expert football predictions, VIP tips, live scores and the latest betting odds for top leagues worldwide.",
@@ -39,13 +39,13 @@
     {
       "name": "About",
       "short_name": "About",
-      "description": "Learn more about FLASH TIPS.",
+      "description": "Learn more about VICTORY PICKS.",
       "url": "/about",
       "icons": [{ "src": "logo192.png", "sizes": "192x192", "type": "image/png" }]
     }
   ],
   "developer": {
-    "name": "FLASH TIPS",
+    "name": "VICTORY PICKS",
     "url": "https://flashviptips.onrender.com/"
   },
   "repository": {

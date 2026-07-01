@@ -110,5 +110,5 @@ self.addEventListener('push', (event) => {
     vibrate: [100, 50, 100],
     data: { url: '/' },
   };
-  event.waitUntil(self.registration.showNotification('FLASH TIPS', options));
+  event.waitUntil(self.registration.showNotification('VICTORY PICKS', options));
 });

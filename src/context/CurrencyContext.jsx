@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 
 const CURRENCIES = {
   KES: { symbol: 'KSh', code: 'KES', rate: 1, label: 'KES' },
-  NGN: { symbol: '₦', code: 'NGN', rate: 18, label: 'NGN' },
+  NGN: { symbol: '₦', code: 'NGN', rate: 10.8, label: 'NGN' },
 };
 
 const STORAGE_KEY = 'flash_currency';

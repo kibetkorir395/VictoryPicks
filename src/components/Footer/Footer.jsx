@@ -39,9 +39,9 @@ const Footer = () => {
 
 				<div className="section-wrapper theme">
 					<section>
-						<h2>FLASH TIPS</h2>
+						<h2>VICTORY PICKS</h2>
 						<div className="items-container theme">
-							<NavLink to="/" title="FLASH TIPS" state={{ from: location }}>
+							<NavLink to="/" title="VICTORY PICKS" state={{ from: location }}>
 								Home
 							</NavLink>
 							<NavLink to="/login" title="login" state={{ from: location }}>
@@ -82,7 +82,7 @@ const Footer = () => {
 				</div>
 				<hr />
 				<div className="footer-bottom theme">
-					<p>&copy; FLASH TIPS {new Date().getFullYear()}</p>
+					<p>&copy; VICTORY PICKS {new Date().getFullYear()}</p>
 					<NavLink to="/about/#faq" title="help" state={{ from: location }}>
 						FAQ
 					</NavLink>

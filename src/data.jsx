@@ -124,36 +124,11 @@ export const featured = [
 ];
 
 export const socialUrls = [
-	{
-		id: 1,
-		icon: <IoLogoFacebook />,
-		url: "https://www.facebook.com/share/1ETmmWvxHn/",
-		title: "Facebook",
-	},
-	{
-		id: 2,
-		icon: <FaTelegram />,
-		url: "https://t.me/flashviptips_ke",
-		title: "Telegram",
-	},
-	{
-		id: 3,
-		icon: <IoLogoWhatsapp />,
-		url: "https://whatsapp.com/channel/0029VbAzC5EA89Mi4nOZRu0n",
-		title: "WhatsApp",
-	},
-	{
-		id: 4,
-		icon: <PiXLogo />,
-		url: "https://x.com/flashviptips_ke",
-		title: "X(Twitter)",
-	},
-	{
-		id: 5,
-		icon: <IoLogoInstagram />,
-		url: "https://instagram.com/flashviptips_ke",
-		title: "Instagram",
-	},
+	{ id: 1,icon: <IoLogoFacebook />,url: "https://www.facebook.com/share/1ZctTrAGNR/",title: "Facebook"},
+	{ id: 2, icon: <FaTelegram />, url: "https://t.me/victorypicks_ke", title: "Telegram" },
+    { id: 3, icon: <IoLogoWhatsapp />, url: "https://whatsapp.com/channel/0029VbAzC5EA89Mi4nOZRu0n", title: "WhatsApp" },
+    { id: 4, icon: <PiXLogo />, url: "https://x.com/victorypicks_ke", title: "X(Twitter)" },
+    { id: 5, icon: <IoLogoInstagram />, url: "https://instagram.com/victorypicks_ke", title: "Instagram" },
 ];
 
 export const slides = [
