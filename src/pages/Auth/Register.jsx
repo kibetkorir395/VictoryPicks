@@ -1,22 +1,28 @@
 import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate, } from 'react-router-dom';
 import './Auth.scss'
-import { registerUser } from '../../firebase';
+import { getUser, registerUser } from '../../firebase';
 import AppHelmet from '../AppHelmet';
 import ScrollToTop from '../ScrollToTop';
-import { useSetRecoilState } from 'recoil';
-import { notificationState } from '../../recoil/atoms';
+import { notificationState, userState } from '../../recoil/atoms';
+import { useSetRecoilState , useRecoilState } from 'recoil';
 
 export const Register = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [user, setUser] = useRecoilState(userState);
   const setNotification = useSetRecoilState(notificationState);
+  const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
     if (email && password) {
-      registerUser(username, email, password, setNotification);
+      const refreshUser = async (email) => {
+        await getUser(email, setUser);
+        navigate('/subscribe')
+    };
+      registerUser(username, email, password, setNotification, refreshUser);
     } else {
       setNotification({
         isVisible: true,

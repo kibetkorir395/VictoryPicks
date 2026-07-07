@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { NavLink, useNavigate, useSearchParams } from 'react-router-dom';
 import './Auth.scss';
-import { signInUser, sendPasswordReset, confirmReset } from '../../firebase';
+import { getUser, signInUser, sendPasswordReset, confirmReset } from '../../firebase';
 import AppHelmet from '../AppHelmet';
 import ScrollToTop from '../ScrollToTop';
-import { notificationState } from '../../recoil/atoms';
-import { useSetRecoilState } from 'recoil';
+import { notificationState, userState } from '../../recoil/atoms';
+import { useSetRecoilState , useRecoilState } from 'recoil';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
@@ -18,6 +18,7 @@ export const Login = () => {
   const [resetDone, setResetDone] = useState(false);
   const setNotification = useSetRecoilState(notificationState);
   const [searchParams] = useSearchParams();
+  const [user, setUser] = useRecoilState(userState);
   const navigate = useNavigate();
 
   const hasResetCode = !!searchParams.get('oobCode');
@@ -29,7 +30,11 @@ export const Login = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     if (email && password) {
-      signInUser(email, password, setNotification);
+      const refreshUser = async (email) => {
+        await getUser(email, setUser);
+        navigate("/");
+    };
+      signInUser(email, password, setNotification, refreshUser);
     } else {
       setNotification({
         isVisible: true,

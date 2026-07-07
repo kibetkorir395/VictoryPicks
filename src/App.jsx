@@ -36,16 +36,18 @@ function App() {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        getUser(currentUser.email, setUser);
-      } else {
-        setUser(null);
-      }
-      setLoading(false);
+      (async () => {
+        if (currentUser) {
+          await getUser(currentUser.email, setUser);
+        } else {
+          setUser(null);
+        }
+        setLoading(false);
+      })();
     });
-
+  
     return () => unsubscribe();
-  }, [setUser]);
+  }, []);
 
   useEffect(() => {
     checkSubscriptionStatus(user, setNotification);
