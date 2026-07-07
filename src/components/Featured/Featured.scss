@@ -4,6 +4,7 @@
   align-items: center;
   flex-direction: column;
   padding: 18px 8px;
+  transition: all var(--transition-speed) ease;
 
   .wrapper {
     width: 100%;
@@ -28,12 +29,31 @@
       border: 1px solid var(--border-soft);
       border-radius: var(--r-lg);
       box-shadow: var(--shadow-sm);
-      transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+      transition: box-shadow 0.25s ease, transform 0.25s ease, 
+                  border-color 0.25s ease, background var(--transition-speed) ease,
+                  border-color var(--transition-speed) ease;
 
       &:hover {
         box-shadow: var(--shadow-md);
         transform: translateY(-3px);
         border-color: var(--primary-200);
+
+        [data-theme="dark"] & {
+          border-color: var(--primary-200);
+          box-shadow: var(--shadow-md);
+        }
+      }
+
+      // Dark mode styles
+      [data-theme="dark"] & {
+        background: var(--bg);
+        border-color: var(--border);
+        box-shadow: var(--shadow);
+
+        &:hover {
+          border-color: var(--primary-200);
+          box-shadow: var(--shadow-md);
+        }
       }
 
       .emoji {
@@ -46,6 +66,11 @@
         border-radius: 50%;
         background: var(--primary-50);
         flex-shrink: 0;
+        transition: background var(--transition-speed) ease;
+
+        [data-theme="dark"] & {
+          background: var(--primary-50);
+        }
       }
 
       h3 {
@@ -55,6 +80,11 @@
         text-align: center;
         font-weight: 600;
         color: var(--dark);
+        transition: color var(--transition-speed) ease;
+
+        [data-theme="dark"] & {
+          color: var(--dark);
+        }
       }
     }
 
@@ -66,6 +96,7 @@
         .item {
           padding: 12px 8px;
           gap: 8px;
+          max-width: 100%;
 
           .emoji {
             font-size: 18px;
@@ -80,5 +111,128 @@
         }
       }
     }
+
+    @media screen and (max-width: 400px) {
+      & {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        padding: 0 4px;
+
+        .item {
+          padding: 14px 10px;
+          max-width: 100%;
+          justify-content: center;
+
+          .emoji {
+            font-size: 20px;
+            width: 40px;
+            height: 40px;
+          }
+
+          h3 {
+            font-size: 16px;
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+
+  // Optional: Add a subtle section title or description
+  .featured-title {
+    width: 100%;
+    max-width: 1100px;
+    padding: 0 8px 16px;
+    text-align: center;
+
+    h2 {
+      color: var(--dark);
+      font-size: 24px;
+      font-weight: 700;
+      transition: color var(--transition-speed) ease;
+
+      [data-theme="dark"] & {
+        color: var(--dark);
+      }
+    }
+
+    p {
+      color: var(--grey);
+      font-size: 15px;
+      margin-top: 4px;
+      transition: color var(--transition-speed) ease;
+
+      [data-theme="dark"] & {
+        color: var(--grey-2);
+      }
+    }
+  }
+}
+
+// Optional: Add loading skeleton styles for featured items
+.featured .wrapper .item.skeleton {
+  background: var(--bg-soft);
+  border-color: var(--border-soft);
+  pointer-events: none;
+  min-height: 80px;
+
+  [data-theme="dark"] & {
+    background: var(--bg-soft);
+    border-color: var(--border);
+  }
+
+  .emoji {
+    background: var(--border);
+    opacity: 0.5;
+
+    [data-theme="dark"] & {
+      background: var(--border);
+    }
+  }
+
+  h3 {
+    color: transparent;
+    background: linear-gradient(90deg, var(--border) 25%, var(--border-soft) 50%, var(--border) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: var(--r-sm);
+    min-height: 20px;
+    width: 80%;
+    margin: 0 auto;
+
+    [data-theme="dark"] & {
+      background: linear-gradient(90deg, var(--border) 25%, var(--border-soft) 50%, var(--border) 75%);
+      background-size: 200% 100%;
+    }
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+// Accessibility: Focus styles for featured items
+.featured .wrapper .item:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: var(--r-lg);
+
+  [data-theme="dark"] & {
+    outline-color: var(--primary-light);
+  }
+}
+
+// Optional: Active state for featured items
+.featured .wrapper .item:active {
+  transform: scale(0.98);
+  transition: transform 0.1s ease;
+
+  [data-theme="dark"] & {
+    transform: scale(0.98);
   }
 }

@@ -15,12 +15,26 @@
   border: 1px solid var(--border-soft);
   border-radius: var(--r-md);
   box-shadow: var(--shadow-sm);
-  transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+  transition: box-shadow 0.25s ease, transform 0.25s ease, 
+              border-color 0.25s ease, background var(--transition-speed) ease,
+              border-color var(--transition-speed) ease;
 
   &:hover {
     box-shadow: var(--shadow-md);
     transform: translateY(-1px);
     border-color: var(--primary-200);
+  }
+
+  // Dark mode tip card
+  [data-theme="dark"] & {
+    background: var(--bg);
+    border-color: var(--border);
+    box-shadow: var(--shadow);
+
+    &:hover {
+      box-shadow: var(--shadow-md);
+      border-color: var(--primary-200);
+    }
   }
 
   .top {
@@ -35,14 +49,28 @@
       span {
         font-weight: 700;
         font-size: 13px;
+        transition: color var(--transition-speed) ease;
+
         &.won {
           color: var(--primary);
+
+          [data-theme="dark"] & {
+            color: var(--primary-light);
+          }
         }
         &.lost {
           color: var(--red);
+
+          [data-theme="dark"] & {
+            color: #f87171;
+          }
         }
         &.pending {
           color: var(--primary-dark);
+
+          [data-theme="dark"] & {
+            color: var(--primary-light);
+          }
         }
       }
     }
@@ -55,6 +83,43 @@
       z-index: 2;
       border-radius: var(--r-pill);
       color: var(--dark);
+      transition: color var(--transition-speed) ease, 
+                  background var(--transition-speed) ease;
+
+      [data-theme="dark"] & {
+        color: var(--dark);
+      }
+
+      // Status badges
+      &.status-won {
+        background: var(--primary-50);
+        color: var(--primary);
+
+        [data-theme="dark"] & {
+          background: var(--primary-50);
+          color: var(--primary-light);
+        }
+      }
+
+      &.status-lost {
+        background: var(--light-red);
+        color: var(--red);
+
+        [data-theme="dark"] & {
+          background: var(--light-red);
+          color: #f87171;
+        }
+      }
+
+      &.status-pending {
+        background: var(--light-yellow);
+        color: #92400e;
+
+        [data-theme="dark"] & {
+          background: var(--light-yellow);
+          color: #fbbf24;
+        }
+      }
     }
 
     a {
@@ -64,11 +129,21 @@
       padding: 4px;
       border-radius: var(--r-sm);
       color: var(--primary-dark);
-      transition: background 0.2s ease, color 0.2s ease;
+      transition: background 0.2s ease, color 0.2s ease, 
+                  color var(--transition-speed) ease;
 
       &:hover {
         background: var(--primary-50);
         color: var(--primary);
+      }
+
+      [data-theme="dark"] & {
+        color: var(--primary-light);
+
+        &:hover {
+          background: var(--primary-50);
+          color: var(--primary);
+        }
       }
     }
   }
@@ -105,6 +180,11 @@
         font-size: 14px;
         font-weight: 500;
         color: var(--dark);
+        transition: color var(--transition-speed) ease;
+
+        [data-theme="dark"] & {
+          color: var(--dark);
+        }
 
         &:first-child {
           text-align: end;
@@ -113,6 +193,10 @@
         &.hidden {
           color: transparent;
           text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+
+          [data-theme="dark"] & {
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+          }
         }
       }
 
@@ -128,7 +212,162 @@
         font-size: 12px;
         font-weight: 700;
         box-shadow: var(--shadow-sm);
+        transition: background var(--transition-speed) ease, 
+                    box-shadow var(--transition-speed) ease;
+
+        [data-theme="dark"] & {
+          background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+          box-shadow: var(--shadow);
+        }
       }
+    }
+  }
+
+  // Bottom section (optional)
+  .bottom {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 4px;
+    padding-top: 6px;
+    border-top: 1px solid var(--border-soft);
+    transition: border-color var(--transition-speed) ease;
+
+    [data-theme="dark"] & {
+      border-top: 1px solid var(--border);
+    }
+
+    .date {
+      font-size: 12px;
+      color: var(--grey);
+      transition: color var(--transition-speed) ease;
+
+      [data-theme="dark"] & {
+        color: var(--grey-2);
+      }
+    }
+
+    .tip-id {
+      font-size: 11px;
+      color: var(--grey-2);
+      font-weight: 500;
+      transition: color var(--transition-speed) ease;
+
+      [data-theme="dark"] & {
+        color: var(--grey-2);
+      }
+    }
+  }
+
+  // Premium/Featured badge
+  .premium-badge {
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    padding: 3px 12px;
+    background: linear-gradient(135deg, var(--gold), #ffd84d);
+    color: #5a3d00;
+    font-size: 10px;
+    font-weight: 700;
+    border-radius: 0 var(--r-md) 0 var(--r-md);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all var(--transition-speed) ease;
+
+    [data-theme="dark"] & {
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      color: #78350f;
+    }
+  }
+
+  // Loading/Skeleton state
+  &.skeleton {
+    pointer-events: none;
+    opacity: 0.6;
+
+    [data-theme="dark"] & {
+      opacity: 0.5;
+    }
+
+    .top p,
+    .center .teams p,
+    .bottom .date,
+    .bottom .tip-id {
+      color: transparent;
+      background: linear-gradient(90deg, var(--border-soft) 25%, var(--border) 50%, var(--border-soft) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+      border-radius: var(--r-sm);
+      min-height: 16px;
+
+      [data-theme="dark"] & {
+        background: linear-gradient(90deg, var(--border) 25%, var(--border-soft) 50%, var(--border) 75%);
+        background-size: 200% 100%;
+      }
+    }
+
+    .top .results span {
+      color: transparent;
+    }
+
+    .center .teams .results {
+      opacity: 0.5;
+    }
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+// Responsive styles for tip card
+@media screen and (max-width: 480px) {
+  .tip-card {
+    padding: 8px 10px;
+    gap: 4px;
+
+    .top {
+      flex-wrap: wrap;
+      gap: 4px;
+
+      .results span {
+        font-size: 12px;
+      }
+
+      p {
+        font-size: 11px;
+        padding: 2px 6px;
+      }
+    }
+
+    .center .teams {
+      p {
+        font-size: 13px;
+      }
+
+      .results {
+        min-width: 44px;
+        font-size: 11px;
+        padding: 4px 6px;
+      }
+    }
+
+    .bottom {
+      .date,
+      .tip-id {
+        font-size: 11px;
+      }
+    }
+
+    .premium-badge {
+      font-size: 9px;
+      padding: 2px 10px;
     }
   }
 }

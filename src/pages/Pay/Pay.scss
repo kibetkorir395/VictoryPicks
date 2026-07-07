@@ -10,6 +10,14 @@
   background:
     radial-gradient(600px 300px at 50% 0%, rgba(5, 146, 18, 0.1), transparent 60%),
     linear-gradient(to bottom, var(--lite), var(--primary-50));
+  transition: background var(--transition-speed) ease;
+
+  // Dark mode gradient adjustments
+  [data-theme="dark"] & {
+    background:
+      radial-gradient(600px 300px at 50% 0%, rgba(34, 197, 94, 0.08), transparent 60%),
+      linear-gradient(to bottom, var(--bg), var(--bg-soft));
+  }
 
   .pay-card {
     width: 100%;
@@ -24,6 +32,9 @@
     align-items: center;
     text-align: center;
     gap: 10px;
+    transition: background var(--transition-speed) ease, 
+                border-color var(--transition-speed) ease, 
+                box-shadow var(--transition-speed) ease;
 
     .pay-badge {
       display: inline-flex;
@@ -37,6 +48,13 @@
       letter-spacing: 0.5px;
       text-transform: uppercase;
       box-shadow: 0 6px 16px -6px rgba(245, 181, 10, 0.5);
+      transition: background var(--transition-speed) ease;
+
+      [data-theme="dark"] & {
+        background: linear-gradient(135deg, #fbbf24, #f59e0b);
+        color: #78350f;
+        box-shadow: 0 6px 16px -6px rgba(251, 191, 36, 0.4);
+      }
     }
 
     h2 {
@@ -44,6 +62,7 @@
       font-size: 22px;
       font-weight: 700;
       margin: 4px 0 0;
+      transition: color var(--transition-speed) ease;
     }
 
     .plan {
@@ -53,6 +72,13 @@
       padding: 4px 12px;
       border-radius: var(--r-pill);
       background: var(--primary-50);
+      transition: background var(--transition-speed) ease, 
+                  color var(--transition-speed) ease;
+
+      [data-theme="dark"] & {
+        background: var(--primary-50);
+        color: var(--primary-light);
+      }
     }
 
     .amount {
@@ -65,6 +91,7 @@
         font-size: 20px;
         font-weight: 600;
         color: var(--grey);
+        transition: color var(--transition-speed) ease;
       }
 
       .value {
@@ -72,6 +99,11 @@
         font-weight: 800;
         color: var(--primary-dark);
         letter-spacing: -1px;
+        transition: color var(--transition-speed) ease;
+
+        [data-theme="dark"] & {
+          color: var(--primary-light);
+        }
       }
     }
 
@@ -84,11 +116,13 @@
       background: var(--bg-soft);
       border-radius: var(--r-md);
       margin: 6px 0;
+      transition: background var(--transition-speed) ease;
 
       .label {
         font-size: 13px;
         color: var(--grey);
         font-weight: 500;
+        transition: color var(--transition-speed) ease;
       }
 
       .value {
@@ -96,6 +130,7 @@
         color: var(--dark);
         font-weight: 700;
         text-transform: capitalize;
+        transition: color var(--transition-speed) ease;
       }
     }
 
@@ -114,6 +149,7 @@
         padding-left: 26px;
         font-size: 13px;
         color: var(--dark-2);
+        transition: color var(--transition-speed) ease;
 
         &::before {
           content: "✓";
@@ -130,6 +166,13 @@
           display: flex;
           align-items: center;
           justify-content: center;
+          transition: background var(--transition-speed) ease, 
+                      color var(--transition-speed) ease;
+
+          [data-theme="dark"] & {
+            background: var(--primary-50);
+            color: var(--primary-light);
+          }
         }
       }
     }
@@ -143,6 +186,14 @@
       font-size: 12px;
       color: var(--grey);
       margin-top: 4px;
+      transition: color var(--transition-speed) ease;
+    }
+
+    // Dark mode specific card styles
+    [data-theme="dark"] & {
+      background: var(--bg);
+      border-color: var(--border);
+      box-shadow: var(--shadow-lg);
     }
   }
 
@@ -151,6 +202,7 @@
     color: var(--dark-2);
     font-size: 18px;
     font-weight: 600;
+    transition: color var(--transition-speed) ease;
   }
 
   form.method {
@@ -194,6 +246,18 @@
           color: var(--primary-dark);
           border-color: var(--primary-200);
         }
+
+        [data-theme="dark"] & {
+          background: var(--bg-soft);
+          border-color: var(--border);
+          color: var(--grey);
+
+          &:hover {
+            background: var(--primary-50);
+            color: var(--primary-light);
+            border-color: var(--primary-200);
+          }
+        }
       }
 
       input[type="radio"] {
@@ -211,7 +275,56 @@
           border: 1px solid var(--primary-dark);
           position: relative;
           z-index: 5;
+
+          [data-theme="dark"] & {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--lite);
+            box-shadow: var(--shadow-primary);
+            border: 1px solid var(--primary);
+          }
         }
+      }
+    }
+  }
+}
+
+// Additional responsive adjustments for dark mode
+@media screen and (max-width: 480px) {
+  .pay {
+    .pay-card {
+      padding: 20px 16px 18px;
+
+      .amount .value {
+        font-size: 32px;
+      }
+
+      .billing-row {
+        padding: 8px 12px;
+
+        .label,
+        .value {
+          font-size: 12px;
+        }
+      }
+
+      .perks li {
+        font-size: 12px;
+        padding-left: 24px;
+
+        &::before {
+          width: 16px;
+          height: 16px;
+          font-size: 10px;
+        }
+      }
+    }
+
+    form.method fieldset {
+      max-width: 240px;
+
+      label {
+        font-size: 12px;
+        padding: 0.6em;
       }
     }
   }

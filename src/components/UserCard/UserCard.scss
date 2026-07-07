@@ -9,12 +9,26 @@
   text-decoration: none;
   flex-wrap: wrap;
   overflow: hidden;
-  transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+  transition: box-shadow 0.25s ease, transform 0.25s ease, 
+              border-color 0.25s ease, background var(--transition-speed) ease,
+              border-color var(--transition-speed) ease;
 
   &:hover {
     box-shadow: var(--shadow-lg);
     transform: translateY(-3px);
     border-color: var(--primary-200);
+  }
+
+  // Dark mode card
+  [data-theme="dark"] & {
+    background: var(--bg);
+    border-color: var(--border);
+    box-shadow: var(--shadow);
+
+    &:hover {
+      box-shadow: var(--shadow-lg);
+      border-color: var(--primary-200);
+    }
   }
 
   @media screen and (max-width: 448px) {
@@ -27,6 +41,11 @@
     height: 80px;
     background-size: cover;
     background-position: center;
+    transition: opacity var(--transition-speed) ease;
+
+    [data-theme="dark"] & {
+      opacity: 0.9;
+    }
   }
 
   .user-info-wrap {
@@ -42,6 +61,13 @@
       object-fit: cover;
       object-position: center;
       box-shadow: var(--shadow);
+      transition: border-color var(--transition-speed) ease,
+                  box-shadow var(--transition-speed) ease;
+
+      [data-theme="dark"] & {
+        border-color: var(--bg);
+        box-shadow: var(--shadow);
+      }
     }
 
     .user-info {
@@ -55,6 +81,11 @@
         color: var(--primary-dark);
         word-wrap: break-word;
         word-break: break-word;
+        transition: color var(--transition-speed) ease;
+
+        [data-theme="dark"] & {
+          color: var(--primary-light);
+        }
       }
 
       .user-title {
@@ -66,6 +97,11 @@
         width: 100%;
         word-wrap: break-word;
         word-break: break-word;
+        transition: color var(--transition-speed) ease;
+
+        [data-theme="dark"] & {
+          color: var(--grey-2);
+        }
       }
     }
   }
@@ -85,12 +121,336 @@
       width: 100%;
       word-wrap: break-word;
       word-break: break-word;
+      transition: color var(--transition-speed) ease;
+
+      [data-theme="dark"] & {
+        color: var(--grey);
+      }
     }
 
     .mail {
       font-size: 16px;
       margin-right: 8px;
       color: var(--primary);
+      transition: color var(--transition-speed) ease;
+
+      [data-theme="dark"] & {
+        color: var(--primary-light);
+      }
+    }
+  }
+
+  // Optional: Badge on card
+  .card-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 4px 12px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: var(--lite);
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: var(--r-pill);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: var(--shadow-sm);
+    z-index: 2;
+    transition: all var(--transition-speed) ease;
+
+    [data-theme="dark"] & {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      box-shadow: var(--shadow);
+    }
+  }
+
+  // Optional: Verified badge
+  .verified-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--primary);
+    font-size: 14px;
+    font-weight: 600;
+    transition: color var(--transition-speed) ease;
+
+    [data-theme="dark"] & {
+      color: var(--primary-light);
+    }
+
+    svg {
+      font-size: 16px;
+    }
+  }
+
+  // Optional: Social links
+  .social-links {
+    display: flex;
+    gap: 8px;
+    margin-top: 4px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border-soft);
+    transition: border-color var(--transition-speed) ease;
+
+    [data-theme="dark"] & {
+      border-top: 1px solid var(--border);
+    }
+
+    a {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--grey);
+      background: var(--bg-soft);
+      transition: all 0.25s ease;
+      text-decoration: none;
+
+      &:hover {
+        background: var(--primary);
+        color: var(--lite);
+        transform: translateY(-2px);
+      }
+
+      [data-theme="dark"] & {
+        background: var(--bg-soft);
+        color: var(--grey-2);
+
+        &:hover {
+          background: var(--primary);
+          color: var(--lite);
+        }
+      }
+
+      svg {
+        font-size: 16px;
+      }
+    }
+  }
+
+  // Optional: Card footer with stats
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px 12px;
+    border-top: 1px solid var(--border-soft);
+    margin-top: 4px;
+    transition: border-color var(--transition-speed) ease;
+
+    [data-theme="dark"] & {
+      border-top: 1px solid var(--border);
+    }
+
+    .stat {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+      color: var(--grey);
+      transition: color var(--transition-speed) ease;
+
+      [data-theme="dark"] & {
+        color: var(--grey-2);
+      }
+
+      svg {
+        font-size: 16px;
+      }
+
+      .stat-value {
+        font-weight: 600;
+        color: var(--dark);
+        transition: color var(--transition-speed) ease;
+
+        [data-theme="dark"] & {
+          color: var(--dark);
+        }
+      }
+    }
+  }
+
+  // Loading/Skeleton state
+  &.skeleton {
+    pointer-events: none;
+    opacity: 0.7;
+
+    [data-theme="dark"] & {
+      opacity: 0.6;
+    }
+
+    .cover-bg {
+      background: var(--border-soft);
+      
+      [data-theme="dark"] & {
+        background: var(--border);
+      }
+    }
+
+    .user-photo {
+      background: var(--border-soft);
+      
+      [data-theme="dark"] & {
+        background: var(--border);
+      }
+    }
+
+    .user-name,
+    .user-title,
+    .user-bio > * {
+      color: transparent;
+      background: linear-gradient(90deg, var(--border-soft) 25%, var(--border) 50%, var(--border-soft) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+      border-radius: var(--r-sm);
+      min-height: 16px;
+
+      [data-theme="dark"] & {
+        background: linear-gradient(90deg, var(--border) 25%, var(--border-soft) 50%, var(--border) 75%);
+        background-size: 200% 100%;
+      }
+    }
+
+    .user-name {
+      min-height: 20px;
+      width: 60%;
+    }
+
+    .user-title {
+      min-height: 14px;
+      width: 40%;
+    }
+
+    .user-bio > * {
+      min-height: 14px;
+
+      &:nth-child(2) {
+        width: 80%;
+      }
+    }
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+// Responsive styles for card
+@media screen and (max-width: 768px) {
+  .card {
+    width: 280px;
+    min-height: 180px;
+
+    .cover-bg {
+      height: 70px;
+    }
+
+    .user-info-wrap {
+      .user-photo {
+        height: 48px;
+        width: 48px;
+      }
+
+      .user-info {
+        .user-name {
+          font-size: 16px;
+        }
+
+        .user-title {
+          font-size: 13px;
+        }
+      }
+    }
+
+    .user-bio {
+      padding: 10px 12px 14px;
+
+      > * {
+        font-size: 13px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .card {
+    width: 100%;
+    min-height: 160px;
+    border-radius: var(--r-md);
+
+    .cover-bg {
+      height: 60px;
+    }
+
+    .user-info-wrap {
+      padding: 0 10px;
+      margin-top: -28px;
+
+      .user-photo {
+        height: 40px;
+        width: 40px;
+        border-width: 2px;
+      }
+
+      .user-info {
+        padding-left: 10px;
+        padding-top: 4px;
+
+        .user-name {
+          font-size: 15px;
+        }
+
+        .user-title {
+          font-size: 12px;
+          margin-top: 2px;
+        }
+      }
+    }
+
+    .user-bio {
+      padding: 8px 10px 12px;
+      gap: 6px;
+
+      > * {
+        font-size: 12px;
+      }
+
+      .mail {
+        font-size: 14px;
+        margin-right: 6px;
+      }
+    }
+
+    .card-badge {
+      font-size: 10px;
+      padding: 3px 10px;
+      top: 8px;
+      right: 8px;
+    }
+
+    .social-links {
+      a {
+        width: 28px;
+        height: 28px;
+
+        svg {
+          font-size: 14px;
+        }
+      }
+    }
+
+    .card-footer {
+      padding: 6px 10px 10px;
+
+      .stat {
+        font-size: 12px;
+      }
     }
   }
 }

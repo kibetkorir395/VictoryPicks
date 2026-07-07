@@ -10,6 +10,14 @@
   top: 0;
   z-index: 20;
   box-shadow: 0 2px 8px rgba(10, 104, 71, 0.25);
+  transition: background var(--transition-speed) ease, 
+              box-shadow var(--transition-speed) ease;
+
+  // Dark mode adjustments
+  [data-theme="dark"] & {
+    background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+    box-shadow: 0 2px 12px rgba(34, 197, 94, 0.15);
+  }
 
   a {
     text-decoration: none;
@@ -23,7 +31,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.25s ease, transform 0.25s ease, color 0.25s ease;
+    transition: background 0.25s ease, transform 0.25s ease, 
+                color 0.25s ease, box-shadow 0.25s ease;
 
     * {
       font-size: 18px;
@@ -33,6 +42,225 @@
       color: var(--primary-dark);
       background: var(--lite);
       transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(255, 255, 255, 0.2);
     }
+
+    // Dark mode hover
+    [data-theme="dark"] & {
+      &:hover {
+        color: var(--primary);
+        background: var(--lite);
+        box-shadow: 0 2px 12px rgba(255, 255, 255, 0.15);
+      }
+    }
+
+    // Active state
+    &:active {
+      transform: translateY(0) scale(0.95);
+    }
+
+    // Focus state for accessibility
+    &:focus-visible {
+      outline: 2px solid var(--lite);
+      outline-offset: 2px;
+      box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.2);
+
+      [data-theme="dark"] & {
+        outline: 2px solid var(--lite);
+        box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.2);
+      }
+    }
+  }
+
+  // Optional: Add a subtle pulse animation to the topbar
+  @keyframes topbarPulse {
+    0% {
+      box-shadow: 0 2px 8px rgba(10, 104, 71, 0.25);
+    }
+    50% {
+      box-shadow: 0 2px 16px rgba(10, 104, 71, 0.35);
+    }
+    100% {
+      box-shadow: 0 2px 8px rgba(10, 104, 71, 0.25);
+    }
+  }
+
+  &.pulse {
+    animation: topbarPulse 3s ease-in-out infinite;
+
+    [data-theme="dark"] & {
+      animation-name: topbarPulseDark;
+    }
+  }
+
+  @keyframes topbarPulseDark {
+    0% {
+      box-shadow: 0 2px 12px rgba(34, 197, 94, 0.15);
+    }
+    50% {
+      box-shadow: 0 2px 20px rgba(34, 197, 94, 0.25);
+    }
+    100% {
+      box-shadow: 0 2px 12px rgba(34, 197, 94, 0.15);
+    }
+  }
+
+  // Optional: Add a separator between icons
+  .separator {
+    width: 1px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    margin: 0 2px;
+
+    [data-theme="dark"] & {
+      background: rgba(255, 255, 255, 0.15);
+    }
+  }
+
+  // Optional: Display text label on the topbar
+  .topbar-label {
+    color: var(--lite);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    opacity: 0.9;
+    margin-right: 8px;
+    transition: opacity var(--transition-speed) ease;
+
+    [data-theme="dark"] & {
+      opacity: 0.8;
+    }
+
+    @media screen and (max-width: 480px) {
+      display: none;
+    }
+  }
+
+  // Optional: Badge notification on icons
+  .badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 16px;
+    height: 16px;
+    background: var(--red);
+    color: var(--lite);
+    font-size: 9px;
+    font-weight: 700;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--primary-dark);
+    transition: background var(--transition-speed) ease,
+                border-color var(--transition-speed) ease;
+
+    [data-theme="dark"] & {
+      border-color: var(--primary);
+      background: #f87171;
+    }
+  }
+
+  // Position relative for badge positioning
+  .icon-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+// Responsive styles for topbar
+@media screen and (max-width: 768px) {
+  .topbar {
+    height: 32px;
+    gap: 4px;
+
+    a {
+      width: 26px;
+      height: 26px;
+      padding: 4px;
+      margin: 0 2px;
+
+      * {
+        font-size: 16px;
+      }
+    }
+
+    .topbar-label {
+      font-size: 11px;
+      margin-right: 4px;
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .topbar {
+    height: 28px;
+    gap: 2px;
+
+    a {
+      width: 22px;
+      height: 22px;
+      padding: 3px;
+      margin: 0 2px;
+
+      * {
+        font-size: 14px;
+      }
+    }
+
+    .separator {
+      height: 14px;
+    }
+
+    .badge {
+      width: 14px;
+      height: 14px;
+      font-size: 8px;
+      top: -3px;
+      right: -3px;
+    }
+  }
+}
+
+// Optional: Scroll effect for topbar
+.topbar.scrolled {
+  background: var(--primary-dark);
+  box-shadow: 0 4px 12px rgba(10, 104, 71, 0.3);
+
+  [data-theme="dark"] & {
+    background: var(--primary);
+    box-shadow: 0 4px 16px rgba(34, 197, 94, 0.2);
+  }
+}
+
+// Optional: Hide topbar on scroll down, show on scroll up
+.topbar.hidden {
+  transform: translateY(-100%);
+  transition: transform 0.3s ease;
+
+  &.visible {
+    transform: translateY(0);
+  }
+}
+
+// Dark mode specific scrollbar for the page when topbar is present
+[data-theme="dark"] .topbar {
+  // Add a subtle glow effect on the topbar in dark mode
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.3), transparent);
+    opacity: 0;
+    transition: opacity var(--transition-speed) ease;
+  }
+
+  &:hover::after {
+    opacity: 1;
   }
 }

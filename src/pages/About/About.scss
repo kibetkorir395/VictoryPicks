@@ -7,6 +7,12 @@
   justify-content: center;
   padding: 12px;
   background: linear-gradient(to bottom, var(--lite), var(--primary-50));
+  transition: background var(--transition-speed) ease;
+
+  // Dark mode gradient adjustments
+  [data-theme="dark"] & {
+    background: linear-gradient(to bottom, var(--bg), var(--bg-soft));
+  }
 
   .about-us {
     width: 100%;
@@ -26,6 +32,16 @@
       box-shadow: var(--shadow-sm);
       font-weight: 400;
       line-height: 1.8;
+      transition: background var(--transition-speed) ease, 
+                  border-color var(--transition-speed) ease, 
+                  box-shadow var(--transition-speed) ease;
+
+      // Dark mode card styles
+      [data-theme="dark"] & {
+        background: var(--bg);
+        border-color: var(--border);
+        box-shadow: var(--shadow-md);
+      }
 
       h1 {
         width: 100%;
@@ -35,12 +51,22 @@
         margin-top: 14px;
         margin-bottom: 6px;
         color: var(--primary-dark);
+        transition: color var(--transition-speed) ease;
+
+        [data-theme="dark"] & {
+          color: var(--primary-light);
+        }
       }
 
       p {
         color: var(--dark-2);
         font-size: 15px;
         line-height: 1.7;
+        transition: color var(--transition-speed) ease;
+
+        [data-theme="dark"] & {
+          color: var(--grey);
+        }
       }
 
       .links {
@@ -53,6 +79,68 @@
         a {
           padding: 8px 18px;
           height: fit-content;
+        }
+      }
+    }
+  }
+}
+
+// Responsive styles for about page
+@media screen and (max-width: 768px) {
+  .about {
+    padding: 8px;
+
+    .about-us {
+      height: auto;
+      gap: 16px;
+
+      .info {
+        padding: 14px 12px;
+
+        h1 {
+          font-size: 18px;
+          margin-top: 10px;
+        }
+
+        p {
+          font-size: 14px;
+        }
+
+        .links {
+          flex-direction: column;
+          gap: 8px;
+          width: 100%;
+
+          a {
+            width: 100%;
+            text-align: center;
+            justify-content: center;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .about {
+    .about-us .info {
+      padding: 12px 10px;
+
+      h1 {
+        font-size: 16px;
+        letter-spacing: 0.5px;
+      }
+
+      p {
+        font-size: 13px;
+        line-height: 1.6;
+      }
+
+      .links {
+        a {
+          padding: 6px 14px;
+          font-size: 13px;
         }
       }
     }

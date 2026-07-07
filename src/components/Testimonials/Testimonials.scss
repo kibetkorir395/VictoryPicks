@@ -7,6 +7,12 @@
   position: relative;
   background: linear-gradient(to bottom, var(--primary-50), var(--lite));
   padding: 14px 0;
+  transition: background var(--transition-speed) ease;
+
+  // Dark mode gradient adjustments
+  [data-theme="dark"] & {
+    background: linear-gradient(to bottom, var(--bg-soft), var(--bg));
+  }
 
   .wrapper {
     width: 100%;
@@ -28,11 +34,21 @@
     &::-webkit-scrollbar-track {
       background: var(--border-soft);
       border-radius: 3px;
+      transition: background var(--transition-speed) ease;
+
+      [data-theme="dark"] & {
+        background: var(--border);
+      }
     }
 
     &::-webkit-scrollbar-thumb {
       background: var(--primary-200);
       border-radius: 3px;
+      transition: background var(--transition-speed) ease;
+
+      [data-theme="dark"] & {
+        background: var(--primary-200);
+      }
     }
 
     .testimonial {
@@ -47,12 +63,26 @@
       justify-content: space-between;
       background: var(--lite);
       scroll-snap-align: start;
-      transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+      transition: box-shadow 0.25s ease, transform 0.25s ease, 
+                  border-color 0.25s ease, background var(--transition-speed) ease,
+                  border-color var(--transition-speed) ease;
 
       &:hover {
         box-shadow: var(--shadow-md);
         transform: translateY(-3px);
         border-color: var(--primary-200);
+      }
+
+      // Dark mode testimonial card
+      [data-theme="dark"] & {
+        background: var(--bg);
+        border-color: var(--border);
+        box-shadow: var(--shadow);
+
+        &:hover {
+          box-shadow: var(--shadow-md);
+          border-color: var(--primary-200);
+        }
       }
 
       h2 {
@@ -63,12 +93,22 @@
         text-align: end;
         font-weight: 600;
         margin-top: 10px;
+        transition: color var(--transition-speed) ease;
+
+        [data-theme="dark"] & {
+          color: var(--grey-2);
+        }
 
         &::before {
           content: "@";
           font-size: 15px;
           font-weight: 700;
           color: var(--primary);
+          transition: color var(--transition-speed) ease;
+
+          [data-theme="dark"] & {
+            color: var(--primary-light);
+          }
         }
       }
 
@@ -89,6 +129,11 @@
           text-transform: none;
           letter-spacing: 0;
           padding: 0;
+          transition: color var(--transition-speed) ease;
+
+          [data-theme="dark"] & {
+            color: var(--primary-light);
+          }
         }
 
         p {
@@ -96,6 +141,323 @@
           color: var(--dark-2);
           padding-bottom: 6px;
           line-height: 1.6;
+          transition: color var(--transition-speed) ease;
+
+          [data-theme="dark"] & {
+            color: var(--grey);
+          }
+        }
+      }
+
+      // Rating stars (optional)
+      .rating {
+        display: flex;
+        gap: 2px;
+        margin-bottom: 8px;
+        color: var(--gold);
+        font-size: 16px;
+
+        [data-theme="dark"] & {
+          color: #fbbf24;
+        }
+
+        .star {
+          transition: color var(--transition-speed) ease;
+        }
+
+        .star-empty {
+          color: var(--border);
+          
+          [data-theme="dark"] & {
+            color: var(--border);
+          }
+        }
+      }
+
+      // Avatar/User image (optional)
+      .user-avatar {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 10px;
+        border: 2px solid var(--primary-200);
+        transition: border-color var(--transition-speed) ease;
+
+        [data-theme="dark"] & {
+          border-color: var(--primary-200);
+        }
+      }
+
+      // User info row (optional)
+      .user-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        width: 100%;
+        margin-top: 6px;
+
+        .user-details {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+
+          .user-name {
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--dark);
+            transition: color var(--transition-speed) ease;
+
+            [data-theme="dark"] & {
+              color: var(--dark);
+            }
+          }
+
+          .user-role {
+            font-size: 13px;
+            color: var(--grey);
+            transition: color var(--transition-speed) ease;
+
+            [data-theme="dark"] & {
+              color: var(--grey-2);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Optional: Section title
+  .testimonials-title {
+    width: 100%;
+    max-width: 900px;
+    padding: 0 16px 12px;
+    text-align: center;
+
+    h2 {
+      color: var(--dark);
+      font-size: 24px;
+      font-weight: 700;
+      transition: color var(--transition-speed) ease;
+
+      [data-theme="dark"] & {
+        color: var(--dark);
+      }
+    }
+
+    p {
+      color: var(--grey);
+      font-size: 15px;
+      margin-top: 4px;
+      transition: color var(--transition-speed) ease;
+
+      [data-theme="dark"] & {
+        color: var(--grey-2);
+      }
+    }
+  }
+
+  // Navigation arrows (optional)
+  .nav-arrows {
+    display: flex;
+    gap: 12px;
+    margin-top: 12px;
+
+    button {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--lite);
+      color: var(--dark);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s ease;
+
+      &:hover {
+        background: var(--primary);
+        color: var(--lite);
+        border-color: var(--primary);
+        transform: scale(1.05);
+      }
+
+      &:active {
+        transform: scale(0.95);
+      }
+
+      [data-theme="dark"] & {
+        background: var(--bg);
+        border-color: var(--border);
+        color: var(--dark);
+
+        &:hover {
+          background: var(--primary);
+          color: var(--lite);
+          border-color: var(--primary);
+        }
+      }
+
+      svg {
+        font-size: 20px;
+      }
+
+      &:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+
+        &:hover {
+          background: var(--lite);
+          color: var(--dark);
+          border-color: var(--border);
+          transform: none;
+
+          [data-theme="dark"] & {
+            background: var(--bg);
+            color: var(--dark);
+            border-color: var(--border);
+          }
+        }
+      }
+    }
+  }
+}
+
+// Responsive styles for testimonials
+@media screen and (max-width: 768px) {
+  .testimonials {
+    padding: 10px 0;
+
+    .wrapper {
+      padding: 8px 10px;
+      gap: 12px;
+
+      .testimonial {
+        min-width: 260px;
+        width: 280px;
+        padding: 16px 14px 14px;
+
+        h2 {
+          font-size: 15px;
+        }
+
+        .content {
+          h1 {
+            font-size: 15px;
+          }
+
+          p {
+            font-size: 14px;
+          }
+        }
+
+        .user-avatar {
+          width: 40px;
+          height: 40px;
+        }
+
+        .user-info .user-details {
+          .user-name {
+            font-size: 14px;
+          }
+
+          .user-role {
+            font-size: 12px;
+          }
+        }
+      }
+    }
+
+    .nav-arrows {
+      button {
+        width: 36px;
+        height: 36px;
+
+        svg {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .testimonials {
+    padding: 8px 0;
+
+    .wrapper {
+      padding: 6px 8px;
+      gap: 10px;
+
+      .testimonial {
+        min-width: 220px;
+        width: 240px;
+        padding: 14px 12px 12px;
+
+        h2 {
+          font-size: 14px;
+          margin-top: 8px;
+        }
+
+        .content {
+          gap: 6px;
+
+          h1 {
+            font-size: 14px;
+          }
+
+          p {
+            font-size: 13px;
+            padding-bottom: 4px;
+          }
+        }
+
+        .rating {
+          font-size: 14px;
+        }
+
+        .user-avatar {
+          width: 36px;
+          height: 36px;
+        }
+
+        .user-info {
+          gap: 10px;
+
+          .user-details {
+            .user-name {
+              font-size: 13px;
+            }
+
+            .user-role {
+              font-size: 11px;
+            }
+          }
+        }
+      }
+    }
+
+    .testimonials-title {
+      h2 {
+        font-size: 20px;
+      }
+
+      p {
+        font-size: 14px;
+      }
+    }
+
+    .nav-arrows {
+      gap: 8px;
+      margin-top: 8px;
+
+      button {
+        width: 32px;
+        height: 32px;
+
+        svg {
+          font-size: 16px;
         }
       }
     }

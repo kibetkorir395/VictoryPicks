@@ -6,6 +6,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  transition: all var(--transition-speed) ease;
 
   .accordion {
     width: 100%;
@@ -19,10 +20,27 @@
       background: var(--lite);
       box-shadow: var(--shadow-sm);
       overflow: hidden;
-      transition: box-shadow 0.25s ease, border-color 0.25s ease;
+      transition: box-shadow 0.25s ease, border-color 0.25s ease, 
+                  background var(--transition-speed) ease, 
+                  border-color var(--transition-speed) ease;
 
       &:hover {
         border-color: var(--primary-200);
+
+        [data-theme="dark"] & {
+          border-color: var(--primary-200);
+        }
+      }
+
+      // Dark mode styles
+      [data-theme="dark"] & {
+        background: var(--bg);
+        border-color: var(--border);
+        box-shadow: var(--shadow);
+
+        &:hover {
+          border-color: var(--primary-200);
+        }
       }
 
       button {
@@ -37,12 +55,20 @@
         outline: none;
         font-weight: 600;
         font-size: 15px;
-        transition: color 0.25s ease;
+        transition: color 0.25s ease, background 0.25s ease;
 
         &:hover,
         &:focus {
           cursor: pointer;
           color: var(--primary);
+
+          [data-theme="dark"] & {
+            color: var(--primary-light);
+          }
+        }
+
+        [data-theme="dark"] & {
+          color: var(--dark);
         }
 
         .accordion-title {
@@ -60,7 +86,8 @@
           border: 1px solid var(--primary-200);
           border-radius: 50%;
           background: var(--primary-50);
-          transition: transform 0.25s ease, background 0.25s ease;
+          transition: transform 0.25s ease, background 0.25s ease, 
+                      border-color 0.25s ease;
 
           &::before {
             display: block;
@@ -72,6 +99,7 @@
             height: 2px;
             background: var(--primary-dark);
             transform: translateY(-50%);
+            transition: background 0.25s ease;
           }
 
           &::after {
@@ -83,7 +111,18 @@
             width: 2px;
             height: 10px;
             background: var(--primary-dark);
-            transition: transform 0.25s ease;
+            transition: transform 0.25s ease, background 0.25s ease;
+          }
+
+          // Dark mode icon styles
+          [data-theme="dark"] & {
+            border-color: var(--primary-200);
+            background: var(--primary-50);
+
+            &::before,
+            &::after {
+              background: var(--primary-light);
+            }
           }
         }
 
@@ -98,6 +137,17 @@
 
           &::after {
             transform: rotate(90deg);
+          }
+
+          // Dark mode expanded icon
+          [data-theme="dark"] & {
+            background: var(--primary);
+            border-color: var(--primary);
+
+            &::before,
+            &::after {
+              background: var(--lite);
+            }
           }
         }
       }
@@ -115,12 +165,21 @@
           color: var(--dark-2);
           font-size: 14px;
           line-height: 1.7;
+          transition: color var(--transition-speed) ease;
+
+          [data-theme="dark"] & {
+            color: var(--grey);
+          }
         }
       }
 
       &[aria-expanded="true"] {
         button {
           color: var(--primary);
+
+          [data-theme="dark"] & {
+            color: var(--primary-light);
+          }
         }
 
         .accordion-content {
@@ -128,7 +187,139 @@
           max-height: 400px;
           padding: 0 18px 4px;
         }
+
+        // Dark mode expanded item
+        [data-theme="dark"] & {
+          border-color: var(--primary-200);
+        }
       }
     }
+  }
+}
+
+// Responsive styles for accordion
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 14px 12px 20px;
+
+    .accordion {
+      gap: 8px;
+
+      .accordion-item {
+        button {
+          padding: 14px 16px;
+          font-size: 14px;
+
+          .icon {
+            width: 20px;
+            height: 20px;
+            right: 14px;
+
+            &::before {
+              left: 4px;
+              width: 9px;
+            }
+
+            &::after {
+              top: 4px;
+              left: 8px;
+              height: 9px;
+            }
+          }
+        }
+
+        .accordion-content {
+          p {
+            font-size: 13px;
+            margin: 0 0 12px;
+          }
+        }
+
+        &[aria-expanded="true"] {
+          .accordion-content {
+            padding: 0 16px 4px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .container {
+    padding: 10px 8px 16px;
+
+    .accordion {
+      gap: 6px;
+
+      .accordion-item {
+        border-radius: var(--r-sm);
+
+        button {
+          padding: 12px 14px;
+          font-size: 13px;
+
+          .accordion-title {
+            padding-right: 32px;
+          }
+
+          .icon {
+            width: 18px;
+            height: 18px;
+            right: 12px;
+
+            &::before {
+              left: 3px;
+              width: 8px;
+              height: 1.5px;
+            }
+
+            &::after {
+              top: 4px;
+              left: 7px;
+              height: 8px;
+              width: 1.5px;
+            }
+          }
+        }
+
+        .accordion-content {
+          p {
+            font-size: 12px;
+            margin: 0 0 10px;
+            line-height: 1.6;
+          }
+        }
+
+        &[aria-expanded="true"] {
+          .accordion-content {
+            padding: 0 14px 4px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Optional: Add hover animation for accordion items
+.container .accordion .accordion-item {
+  &:hover {
+    transform: translateY(-1px);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+
+  [data-theme="dark"] &:hover {
+    transform: translateY(-1px);
+  }
+}
+
+// Accessibility: Focus styles for accordion buttons
+.container .accordion .accordion-item button:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: var(--r-sm);
+
+  [data-theme="dark"] & {
+    outline-color: var(--primary-light);
   }
 }

@@ -16,6 +16,9 @@
   box-shadow: var(--shadow-lg);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  transition: background var(--transition-speed) ease, 
+              border-color var(--transition-speed) ease,
+              box-shadow var(--transition-speed) ease;
 
   .icon {
     flex-shrink: 0;
@@ -23,6 +26,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: color var(--transition-speed) ease;
   }
 
   .message {
@@ -32,8 +36,10 @@
     padding: 0 4px;
     text-align: left;
     line-height: 1.4;
+    transition: color var(--transition-speed) ease;
   }
 
+  // Error notification
   &.error {
     background: rgba(253, 226, 224, 0.95);
     border-left: 4px solid var(--red);
@@ -50,8 +56,28 @@
         color: var(--lite);
       }
     }
+
+    // Dark mode error
+    [data-theme="dark"] & {
+      background: rgba(58, 26, 26, 0.95);
+      border-left: 4px solid #f87171;
+
+      > *:not(.close-btn) {
+        color: #f87171;
+      }
+
+      .close-btn {
+        color: #f87171;
+
+        &:hover {
+          background: #f87171;
+          color: var(--bg);
+        }
+      }
+    }
   }
 
+  // Warning notification
   &.warning {
     background: rgba(254, 243, 199, 0.95);
     border-left: 4px solid var(--yellow);
@@ -68,8 +94,28 @@
         color: var(--lite);
       }
     }
+
+    // Dark mode warning
+    [data-theme="dark"] & {
+      background: rgba(58, 42, 26, 0.95);
+      border-left: 4px solid #fbbf24;
+
+      > *:not(.close-btn) {
+        color: #fbbf24;
+      }
+
+      .close-btn {
+        color: #fbbf24;
+
+        &:hover {
+          background: #fbbf24;
+          color: var(--bg);
+        }
+      }
+    }
   }
 
+  // Success notification
   &.success {
     background: rgba(214, 247, 235, 0.95);
     border-left: 4px solid var(--green);
@@ -86,6 +132,63 @@
         color: var(--lite);
       }
     }
+
+    // Dark mode success
+    [data-theme="dark"] & {
+      background: rgba(26, 58, 42, 0.95);
+      border-left: 4px solid #22c55e;
+
+      > *:not(.close-btn) {
+        color: #22c55e;
+      }
+
+      .close-btn {
+        color: #22c55e;
+
+        &:hover {
+          background: #22c55e;
+          color: var(--bg);
+        }
+      }
+    }
+  }
+
+  // Info notification (optional)
+  &.info {
+    background: rgba(219, 234, 254, 0.95);
+    border-left: 4px solid #3b82f6;
+
+    > *:not(.close-btn) {
+      color: #1e40af;
+    }
+
+    .close-btn {
+      color: #1e40af;
+
+      &:hover {
+        background: #3b82f6;
+        color: var(--lite);
+      }
+    }
+
+    // Dark mode info
+    [data-theme="dark"] & {
+      background: rgba(26, 42, 58, 0.95);
+      border-left: 4px solid #60a5fa;
+
+      > *:not(.close-btn) {
+        color: #60a5fa;
+      }
+
+      .close-btn {
+        color: #60a5fa;
+
+        &:hover {
+          background: #60a5fa;
+          color: var(--bg);
+        }
+      }
+    }
   }
 
   .close-btn {
@@ -98,7 +201,16 @@
     background: transparent;
     cursor: pointer;
     flex-shrink: 0;
-    transition: background 0.2s ease, color 0.2s ease;
+    transition: background 0.2s ease, color 0.2s ease, 
+                transform 0.2s ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
 
     > * {
       font-size: 18px;
@@ -135,6 +247,159 @@
     100% {
       transform: translateX(120%);
       opacity: 0;
+    }
+  }
+}
+
+// Responsive styles for notification
+@media screen and (max-width: 768px) {
+  .notification {
+    max-width: 340px;
+    padding: 10px 12px;
+    top: 80px;
+
+    .icon {
+      font-size: 18px;
+    }
+
+    .message {
+      font-size: 13px;
+    }
+
+    .close-btn {
+      height: 24px;
+      width: 24px;
+
+      > * {
+        font-size: 16px;
+      }
+    }
+
+    &.show {
+      right: 12px;
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .notification {
+    max-width: calc(100% - 24px);
+    padding: 10px 12px;
+    top: 72px;
+    border-radius: var(--r-sm);
+    gap: 8px;
+
+    .icon {
+      font-size: 16px;
+    }
+
+    .message {
+      font-size: 12px;
+    }
+
+    .close-btn {
+      height: 22px;
+      width: 22px;
+
+      > * {
+        font-size: 14px;
+      }
+    }
+
+    &.show {
+      right: 12px;
+    }
+  }
+}
+
+// Additional dark mode specific adjustments
+[data-theme="dark"] {
+  .notification {
+    box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    // Default dark mode (if no specific type)
+    &:not(.error):not(.warning):not(.success):not(.info) {
+      background: rgba(30, 41, 59, 0.95);
+      border-left: 4px solid var(--border);
+
+      > *:not(.close-btn) {
+        color: var(--dark);
+      }
+
+      .close-btn {
+        color: var(--grey);
+
+        &:hover {
+          background: var(--grey);
+          color: var(--bg);
+        }
+      }
+    }
+  }
+}
+
+// Optional: Progress bar for auto-dismiss
+.notification .progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: currentColor;
+  border-radius: 0 0 var(--r-sm) var(--r-sm);
+  animation: progress 5s linear forwards;
+  opacity: 0.3;
+
+  [data-theme="dark"] & {
+    opacity: 0.4;
+  }
+}
+
+@keyframes progress {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 0%;
+  }
+}
+
+// Optional: Stacked notifications
+.notification.stacked {
+  top: auto;
+
+  &:nth-child(1) {
+    top: 96px;
+  }
+
+  &:nth-child(2) {
+    top: 156px;
+  }
+
+  &:nth-child(3) {
+    top: 216px;
+  }
+
+  &:nth-child(4) {
+    top: 276px;
+  }
+
+  @media screen and (max-width: 480px) {
+    &:nth-child(1) {
+      top: 72px;
+    }
+
+    &:nth-child(2) {
+      top: 132px;
+    }
+
+    &:nth-child(3) {
+      top: 192px;
+    }
+
+    &:nth-child(4) {
+      top: 252px;
     }
   }
 }

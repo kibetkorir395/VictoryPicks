@@ -21,6 +21,16 @@
     border-radius: var(--r-lg);
     box-shadow: var(--shadow-lg);
     animation: install-slide-up 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: background var(--transition-speed) ease, 
+                border-color var(--transition-speed) ease, 
+                box-shadow var(--transition-speed) ease;
+
+    // Dark mode content
+    [data-theme="dark"] & {
+      background: var(--bg);
+      border-color: var(--border);
+      box-shadow: 0 20px 48px -12px rgba(0, 0, 0, 0.6);
+    }
 
     .install-icon {
       width: 40px;
@@ -34,6 +44,11 @@
       justify-content: center;
       font-size: 22px;
       box-shadow: var(--shadow-primary);
+      transition: box-shadow var(--transition-speed) ease;
+
+      [data-theme="dark"] & {
+        box-shadow: 0 8px 24px -8px rgba(34, 197, 94, 0.3);
+      }
     }
 
     .install-text {
@@ -46,11 +61,21 @@
         font-size: 14px;
         color: var(--dark);
         font-weight: 700;
+        transition: color var(--transition-speed) ease;
+
+        [data-theme="dark"] & {
+          color: var(--dark);
+        }
       }
 
       span {
         font-size: 12px;
         color: var(--grey);
+        transition: color var(--transition-speed) ease;
+
+        [data-theme="dark"] & {
+          color: var(--grey-2);
+        }
       }
     }
 
@@ -64,12 +89,25 @@
       font-weight: 700;
       cursor: pointer;
       box-shadow: var(--shadow-primary);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      transition: transform 0.2s ease, box-shadow 0.2s ease,
+                  background var(--transition-speed) ease;
       flex-shrink: 0;
 
       &:hover {
         transform: translateY(-1px);
         box-shadow: 0 14px 28px -8px rgba(5, 146, 18, 0.45);
+      }
+
+      &:active {
+        transform: translateY(0) scale(0.98);
+      }
+
+      [data-theme="dark"] & {
+        box-shadow: 0 8px 24px -8px rgba(34, 197, 94, 0.3);
+
+        &:hover {
+          box-shadow: 0 14px 28px -8px rgba(34, 197, 94, 0.35);
+        }
       }
     }
 
@@ -85,13 +123,73 @@
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      transition: background 0.2s ease, color 0.2s ease;
+      transition: background 0.2s ease, color 0.2s ease,
+                  color var(--transition-speed) ease;
 
       &:hover {
         background: var(--bg-soft);
         color: var(--dark);
       }
+
+      &:active {
+        transform: scale(0.95);
+      }
+
+      [data-theme="dark"] & {
+        color: var(--grey-2);
+
+        &:hover {
+          background: var(--bg-soft);
+          color: var(--dark);
+        }
+      }
     }
+  }
+
+  // Progress bar for auto-dismiss (optional)
+  .install-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+    border-radius: 0 0 var(--r-lg) var(--r-lg);
+    animation: progress 8s linear forwards;
+    transition: background var(--transition-speed) ease;
+
+    [data-theme="dark"] & {
+      background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+    }
+  }
+
+  // Different variants
+  &.success .install-content {
+    border-left: 4px solid var(--success);
+
+    [data-theme="dark"] & {
+      border-left: 4px solid var(--success);
+    }
+  }
+
+  &.warning .install-content {
+    border-left: 4px solid var(--warning);
+
+    [data-theme="dark"] & {
+      border-left: 4px solid #fbbf24;
+    }
+  }
+
+  &.error .install-content {
+    border-left: 4px solid var(--red);
+
+    [data-theme="dark"] & {
+      border-left: 4px solid #f87171;
+    }
+  }
+
+  // Dismiss animation
+  &.dismissing .install-content {
+    animation: install-slide-down 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   }
 }
 
@@ -103,5 +201,166 @@
   to {
     transform: translateY(0);
     opacity: 1;
+  }
+}
+
+@keyframes install-slide-down {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(120%);
+    opacity: 0;
+  }
+}
+
+@keyframes progress {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 0%;
+  }
+}
+
+// Responsive styles for install-prompt
+@media screen and (max-width: 768px) {
+  .install-prompt {
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+
+    .install-content {
+      padding: 10px 12px;
+      gap: 10px;
+      border-radius: var(--r-md);
+
+      .install-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 18px;
+      }
+
+      .install-text {
+        strong {
+          font-size: 13px;
+        }
+
+        span {
+          font-size: 11px;
+        }
+      }
+
+      .install-btn {
+        padding: 6px 14px;
+        font-size: 12px;
+      }
+
+      .install-close {
+        font-size: 18px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .install-prompt {
+    left: 6px;
+    right: 6px;
+    bottom: 6px;
+
+    .install-content {
+      padding: 8px 10px;
+      gap: 8px;
+      border-radius: var(--r-sm);
+
+      .install-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
+        min-width: 32px;
+      }
+
+      .install-text {
+        strong {
+          font-size: 12px;
+        }
+
+        span {
+          font-size: 10px;
+        }
+      }
+
+      .install-btn {
+        padding: 5px 12px;
+        font-size: 11px;
+        min-width: 60px;
+      }
+
+      .install-close {
+        font-size: 16px;
+        padding: 2px;
+      }
+    }
+  }
+}
+
+// Optional: Add a subtle shimmer effect to the install button
+.install-prompt .install-content .install-btn {
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      45deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.1) 50%,
+      transparent 70%
+    );
+    transform: rotate(45deg) translateX(-100%);
+    transition: transform 0.6s ease;
+  }
+
+  &:hover::after {
+    transform: rotate(45deg) translateX(100%);
+  }
+}
+
+// Focus styles for accessibility
+.install-prompt .install-content {
+  .install-btn:focus-visible,
+  .install-close:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    border-radius: var(--r-pill);
+
+    [data-theme="dark"] & {
+      outline-color: var(--primary-light);
+    }
+  }
+}
+
+// Dark mode specific scrollbar when prompt is visible
+[data-theme="dark"] .install-prompt .install-content {
+  // Add a subtle glow border effect
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: var(--r-lg);
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), transparent);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
   }
 }
