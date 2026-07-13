@@ -92,10 +92,20 @@ const Navbar = () => {
                         {theme === 'dark' ? <IoSunnyOutline /> : <IoMoonOutline />}
                     </button>
                     {
-                        user ? <span className='btn' onClick={() => {
-                            handleLogout();
-                            handleToggle();
-                        }}>Logout</span> : <>
+                        user ? <>
+                            {
+                                ['kkibetkkoir@gmail.com', 'charleykibet254@gmail.com', 'kipkiruik1@gmail.com'].includes(user.email) && <>
+                                <NavLink className="btn" to="users">Users</NavLink>
+                                <NavLink className="btn" to="add-tip">Add Tips</NavLink>
+                                </>
+                            }
+                            <span className='btn' onClick={() => {
+                                handleLogout();
+                                handleToggle();
+                            }}>Logout</span> 
+                        </>
+                            : 
+                        <>
                             <NavLink className="btn" to="login" onClick={handleToggle} state={{ from: location }}>Login</NavLink>
                             <NavLink className="btn" to="register" onClick={handleToggle} state={{ from: location }}>Register</NavLink>
                         </>

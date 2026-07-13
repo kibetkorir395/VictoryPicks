@@ -53,7 +53,7 @@ export default function TipCard({ tip, isAdmin, today }) {
 				<div className="top">
 					<p
 						style={{
-							backgroundColor: tip.premium ? "gold" : "silver",
+							backgroundColor: tip.premium ? 'var(--gold)' : 'silver',
 							padding: "3px",
 						}}
 					>
@@ -69,7 +69,7 @@ export default function TipCard({ tip, isAdmin, today }) {
 						<p
 							className="tag"
 							style={{
-								backgroundColor: tip.premium ? "gold" : "silver",
+								backgroundColor: tip.premium ? 'var(--gold)' : 'silver',
 							}}
 						>
 							odd: {tip.odd}
