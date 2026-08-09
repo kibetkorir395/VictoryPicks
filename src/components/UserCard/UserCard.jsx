@@ -34,14 +34,14 @@ const UserCard = ({user}) => {
     <div className="user-info-wrap">
       <img src={user.isPremium ? backgroundImage : backgroundImage2} alt="" className="user-photo" />
       <div className="user-info">
-        <div className="user-name">{user.subscription ? user.subscription : " Free"} Plan</div>
+        <div className="user-name">{user.subscription ? user.subscription.plan : " Free"} Plan</div>
         <p className="user-title">@{user.username}</p>
       </div>
     </div>
     <div className="user-bio">
       <div className="data"><MdOutlineEmail className="mail"/> {user.email}</div>
-      {user.subDate && <>
-        <div className="data">{user.subscription}</div>
+      {user.subscription && <>
+        <div className="data">{user.subscription.plan}</div>
         <div className="data">{formatDate(user.subDate)}</div>
       </>}
       </div>

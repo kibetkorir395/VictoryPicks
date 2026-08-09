@@ -17,7 +17,7 @@ export default function EditUser() {
 
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
-    const [subscription, setSubscription] = useState("");
+    const [subscription, setSubscription] = useState(null);
     const [subDate, setSubDate] = useState('');
     const [isPremium, setIsPremium] = useState(false);
 
@@ -40,7 +40,7 @@ export default function EditUser() {
             setEmail(user.email)
             setUsername(user.username)
             setIsPremium(user.isPremium)
-            user.subscription ? setSubscription(user.subscription) : setSubscription("Free")
+            setSubscription(user.subscription || null)
             user.subDate && setSubDate(toDateTimeLocal(user.subDate))
         }
     }, [user]);
@@ -56,7 +56,7 @@ export default function EditUser() {
         const usercollref = doc(db,'users', user.email)
         updateDoc(usercollref,{
           isPremium, 
-          subscription: subscription === "Free" ? "" : subscription,
+          subscription: isPremium  ? subscription : null,
           subDate           
         } ).then(response => {
             setNotification({
@@ -91,8 +91,8 @@ export default function EditUser() {
                 <input type="text" placeholder='example@gmail.com' id='email' value={email} onChange={(e) => setEmail(e.target.value)} readOnly/>
             </div>  
             <div className="input-container">
-                <label htmlFor="subscription">Subscription:</label>
-                <input type="text" placeholder='subscription' id='subscription' value={subscription} onChange={(e) => setSubscription(e.target.value)}/>
+                <label htmlFor="plan">Plan:</label>
+                <input type="text" placeholder="plan" id="plan" value={subscription?.plan ?? ''} onChange={(e) => setSubscription(prev => ({ ...prev, plan: e.target.value }))}/>
             </div>
             {<div className="input-container">
                 <label htmlFor="subDate">Subscribed On: </label>
