@@ -14,6 +14,7 @@ const SORT_OPTIONS = [
   { value: 'email-desc', label: 'Email (Z–A)' },
   { value: 'sub-desc', label: 'Newest subscription' },
   { value: 'sub-asc', label: 'Oldest subscription' },
+  {value: "withLocality", label: 'With Locality'}
 ];
 
 const FILTER_OPTIONS = [
@@ -61,6 +62,10 @@ export default function ListUsers() {
           return new Date(b.subDate || 0) - new Date(a.subDate || 0);
         case 'sub-asc':
           return new Date(a.subDate || 0) - new Date(b.subDate || 0);
+        case 'withLocality': 
+          const aHasLoc = a.locality ? 0 : 1;
+          const bHasLoc = b.locality ? 0 : 1;
+          return aHasLoc - bHasLoc;
         default:
           return 0;
       }

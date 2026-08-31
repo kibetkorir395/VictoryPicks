@@ -295,8 +295,6 @@ export default function Subscription() {
         throw new Error("User email not found. Please login again.");
       }
 
-      //console.log('Formatted phone for API:', formattedPhone);
-
       const response = await initializePaystackPayment({
         email: email,
         amount: amount,

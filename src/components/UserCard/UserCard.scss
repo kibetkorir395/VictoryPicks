@@ -102,6 +102,25 @@
         [data-theme="dark"] & {
           color: var(--grey-2);
         }
+
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 6px;
+        overflow: hidden;
+
+        .detail-icon{
+          font-size: 14px;
+          color: var(--text-muted);
+          flex-shrink: 0;
+        }
+
+        span {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
       }
     }
   }

@@ -71,7 +71,7 @@ const Navbar = () => {
             </NavLink>
             <nav>
                 <div className="btn-container">
-                    <div className="currency-switch" role="group" aria-label="Select currency">
+                    {/*<div className="currency-switch" role="group" aria-label="Select currency">
                         {Object.values(options).map((opt) => (
                             <button
                                 key={opt.code}
@@ -83,7 +83,7 @@ const Navbar = () => {
                                 {opt.label}
                             </button>
                         ))}
-                    </div>
+                    </div>*/}
                     <button 
                         className="theme-toggle" 
                         onClick={handleThemeToggle} 

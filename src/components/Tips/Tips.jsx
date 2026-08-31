@@ -197,7 +197,7 @@ export default function Tips() {
 					/>
 				</div>
 			</div>
-			<NavLink className={"subscribe-btn"} state={{ from: location, subscription: pricings[0] }} to={"/subscribe"}>
+			{/*<NavLink className={"subscribe-btn"} state={{ from: location, subscription: pricings[0] }} to={"/subscribe"}>
 				SUBSCRIBE TO VIEW VIP TIPS
 			</NavLink>
 			<form className="type">
@@ -223,7 +223,7 @@ export default function Tips() {
 					/>
 					<label htmlFor="OV_UN">FREE TIPS 🎁</label>
 				</fieldset>
-			</form>
+			</form>*/}
 			{loading && <Loader />}
 			<div className="container">
 				<div className="tips-content container">

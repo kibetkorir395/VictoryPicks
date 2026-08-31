@@ -87,7 +87,7 @@
                   background var(--transition-speed) ease;
 
       [data-theme="dark"] & {
-        color: var(--dark);
+        color: black;//var(--dark);
       }
 
       // Status badges

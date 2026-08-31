@@ -190,6 +190,8 @@ header {
     font-size: 1.3rem;
     transition: background 0.25s ease, color 0.25s ease, transform 0.4s ease;
 
+    display: none;
+
     &:hover {
       color: var(--lite);
       background: var(--primary-dark);
@@ -250,6 +252,8 @@ header {
       background: var(--primary-50);
       color: var(--text-primary);
 
+      display: none;
+
       &:hover {
         color: var(--lite);
         background: var(--primary);
@@ -257,7 +261,7 @@ header {
     }
   }
 
-  @media screen and (max-width: 693px) {
+  /*@media screen and (max-width: 693px) {
     justify-content: space-between;
 
     nav {
@@ -318,15 +322,15 @@ header {
         border-bottom: 1px solid var(--border);
       }
     }
-  }
+  }*/
 }
 
 // Additional small screen adjustments
 @media screen and (max-width: 480px) {
   header {
-    top: 20px;
+    /*top: 20px;
     height: 48px;
-    padding: 0 12px;
+    padding: 0 12px;*/
 
     .logo {
       height: 34px;

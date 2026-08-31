@@ -4,7 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { notificationState, userState } from './recoil/atoms';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth, getUser } from './firebase';
+import { auth, getUser, recordWebsiteVisit } from './firebase';
 import { IoArrowUp } from "react-icons/io5";
 
 import Topbar from './components/Topbar/Topbar';
@@ -23,8 +23,8 @@ import EditUser from './Admin/Users/EditUser';
 import ProtectedRoute from './utils/ProtectedRoute';
 import ProtectedAuthRoute from './utils/ProtectedAuthRoute';
 import ProtectedAdminRoute from './utils/ProtectedAdminRoute';
-import { checkSubscriptionStatus } from './utils/subscription';
-import Subscription from './pages/Pay/Subscription';
+import { checkSubscriptionStatus, checkLocality, getUserPlatform } from './utils/subscription';
+import KoraPayments from './pages/Pay/KoraPayments';
 import PaystackPayments from './pages/Pay/PaystackPayments';
 import Notification from './components/Notification/Notification';
 import InstallPrompt from './components/InstallPrompt/InstallPrompt';
@@ -36,7 +36,7 @@ function App() {
   const [user, setUser] = useRecoilState(userState);
   const [isScrolled, setIsScrolled] = useState(false);
   const setNotification = useSetRecoilState(notificationState);
-  const { symbol, currency, convertPrice } = useCurrency();
+  const { symbol, currency, convertPrice, locality } = useCurrency();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -55,6 +55,21 @@ function App() {
 
   useEffect(() => {
     checkSubscriptionStatus(user, setNotification);
+    if (user && locality) {
+      checkLocality(user, locality);
+      const device = getUserPlatform()
+      if (navigator.userAgentData) {
+        navigator.userAgentData.getHighEntropyValues([
+          "architecture", 
+          "model", 
+          "platformVersion",
+          "fullVersionList"
+        ])
+        .then(info => {
+          recordWebsiteVisit(user.email, window.location.hostname, {device,...info});
+        });
+      }
+    }
   }, [user]);
 
   useEffect(() => {
@@ -79,7 +94,7 @@ function App() {
           <Notification />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="subscribe" element={<ProtectedRoute>{currency === "KES" ? <PaystackPayments /> : <Subscription />}</ProtectedRoute>} />
+            <Route path="subscribe" element={<ProtectedRoute>{currency === "KES" ? <PaystackPayments /> : <KoraPayments />}</ProtectedRoute>} />
             <Route path="about" element={<About />} />
             <Route path="login" element={<ProtectedAuthRoute><Login /></ProtectedAuthRoute>} />
             <Route path="register" element={<ProtectedAuthRoute><Register /></ProtectedAuthRoute>} />

@@ -11,7 +11,7 @@ const BILLING_OPTIONS = [
 ];
 
 export default function Pricing() {
-  const [billing, setBilling] = useState('Day');
+  const [billing, setBilling] = useState('Week');
   const location = useLocation();
   const { symbol, convertPrice } = useCurrency();
 

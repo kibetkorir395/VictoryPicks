@@ -30,7 +30,7 @@ function loadKoraScript() {
   });
 }
 
-export default function Subscription() {
+export default function KoraPayments() {
   const [user, setUser] = useRecoilState(userState);
   const [loading, setLoading] = useState(false);
   const [paying, setPaying] = useState(false);

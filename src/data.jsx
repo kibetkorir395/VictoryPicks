@@ -4,102 +4,104 @@ import { PiXLogo } from "react-icons/pi";
 
 export const pricings = [
 	{
-		id: "1",
-		plan: "Daily",
-		billing: "Day",
-		title: "Full access to daily predictions",
-		price: 250,
-		features: [
-			"Access 24 hours VIP predictions.",
-			"Expert Football Predictions",
-			"Daily unbeatable football predictions!",
-		],
-		color: "#059212",
+	  id: "1",
+	  plan: "Daily",
+	  billing: "Day",
+	  title: "Complete access to 24-hour picks",
+	  price: 250,
+	  features: [
+		"Instant access to premium daily tips.",
+		"Professional Soccer Analyses",
+		"High-accuracy daily football selections!",
+	  ],
+	  color: "#059212",
 	},
 	{
-		id: "2",
-		plan: "Weekly",
-		billing: "Week",
-		title: "Exclusive weekly access to expert tips",
-		price: 850,
-		features: [
-			"20+ odds daily + Correct Scores",
-			"Enjoy a full week of VIP predictions",
-			"Get the scoop on this week’s matches",
-		],
-		color: "#00A36C",
+	  id: "2",
+	  plan: "Weekly",
+	  billing: "Week",
+	  title: "Premium weekly passes for top insights",
+	  price: 850,
+	  features: [
+		"Daily 10+ odds plus correct score picks",
+		"Unlock 7 full days of premium predictions",
+		"Stay ahead with expert weekly analysis",
+	  ],
+	  color: "#00A36C",
 	},
 	{
-		id: "3",
-		plan: "Monthly",
-		billing: "Month",
-		title: "Comprehensive predictions for dedicated fans",
-		price: 2500,
-		features: [
-			"Plan ahead with our monthly predictions.",
-			"Get unlimited VIP access for a month",
-			"Your 30 Day winning streak starts here!",
-		],
-		color: "#0A6847",
+	  id: "3",
+	  plan: "Monthly",
+	  billing: "Month",
+	  title: "All-inclusive tips for serious punters",
+	  price: 2500,
+	  features: [
+		"Maximize returns with full monthly access.",
+		"Get unrestricted VIP status for 30 days",
+		"Launch your month-long profit streak today!",
+	  ],
+	  color: "#0A6847",
 	},
 ];
+  
 
 export const faqs = [
 	{
 		id: 1,
-		question: "What is the accuracy of your football predictions?",
+		question: "How reliable are your football tips?",
 		answer:
-			"Our predictions are based on a combination of historical data, expert analysis, and advanced algorithms. While no prediction is 100% guaranteed, we strive to provide highly accurate and data-driven insights to help you make informed decisions.",
+			"Our selections leverage deep historical stats, professional insight, and specialized algorithms. While no sports outcome can be completely guaranteed, our goal is to deliver highly reliable, statistics-backed data to help you place smarter bets.",
 	},
 	{
 		id: 2,
-		question: "How can I subscribe to your services?",
+		question: "What is the process for unlocking a plan?",
 		answer:
-			"You can easily subscribe through our website. We offer several tiered subscription plans that suit different needs, from basic insights to premium, detailed predictions. Simply choose your plan and proceed with payment through secure method we have provided.",
+			"Subscribing is simple right here on our platform. We feature multiple membership tiers designed for everyone from casual fans to serious punters. Just select your preferred package and complete your purchase using our secure checkout options.",
 	},
 	{
 		id: 3,
-		question: "Can I cancel or change my subscription?",
+		question: "Am I able to cancel or modify my membership?",
 		answer:
-			"No, you cannot terminate your subscription. Make sure to be certain about making a subscription so that you will not be charged against your will.",
+			"No, all subscription sales are final and cannot be terminated early. Please review your selected plan carefully before completing the transaction to ensure it matches your requirements.",
 	},
 	{
 		id: 4,
-		question: "What kind of football matches do you provide predictions for?",
+		question: "Which football competitions and leagues do you cover?",
 		answer:
-			"We provide predictions for major leagues, international tournaments, and high-profile football matches. This includes competitions like the Premier League, La Liga, Serie A, Champions League, World Cup, and more.",
+			"We track all elite global leagues, major international tournaments, and high-stakes fixtures. This covers everything from the English Premier League, La Liga, and Serie A to the Champions League and the World Cup.",
 	},
 	{
 		id: 6,
-		question: "How do you calculate your predictions?",
+		question: "What goes into generating your match tips?",
 		answer:
-			"Our predictions are based on a combination of factors, including team performance, player statistics, historical match data, and even current form. We also incorporate machine learning models to continuously improve the accuracy of our predictions.",
+			"We analyze a massive range of metrics including squad form, individual player output, head-to-head records, and current momentum. Our system also utilizes predictive models that adapt over time to enhance overall accuracy.",
 	},
 	{
 		id: 7,
-		question: "Can I trust your predictions for betting?",
+		question: "Should I rely on these forecasts for gambling?",
 		answer:
-			"While our predictions are based on solid data and analysis, betting should always be done responsibly, and we cannot be held accountable for any losses.",
+			"Our forecasts are built on thorough analysis and solid data, but sports betting always carries financial risk. Please gamble responsibly, as we are not liable for any betting losses incurred.",
 	},
 	{
 		id: 8,
-		question: "Do you provide live updates during matches?",
+		question: "Are real-time updates available during live games?",
 		answer:
-			"Yes, we offer live updates during key matches. These updates provide additional insights, such as in-game performance metrics, injury reports, and tactical changes that may affect match outcomes.",
+			"Yes, we provide live match-day alerts for major fixtures. These include valuable real-time data like live performance tracking, sudden injuries, and mid-game tactical shifts that could swing the final result.",
 	},
 	{
 		id: 9,
-		question: "What is the best subscription plan for me?",
+		question: "Which tier is the right choice for me?",
 		answer:
-			"It depends on your needs. Our basic plan offers essential predictions, while our premium plans provide more detailed analysis, advanced stats, and expert insights. Review the plans and choose the one that best fits your level of interest.",
+			"That comes down to your personal strategy. The basic tier handles standard daily selections, whereas our higher-level plans unlock deep analytical reports, advanced metrics, and elite tips. Compare our options to find your perfect fit.",
 	},
 	{
 		id: 10,
-		question: "How secure is my payment information?",
+		question: "Is my billing details and payment safe here?",
 		answer:
-			"We take security seriously. All payment transactions are processed through secure, encrypted payment gateway. Your payment information is never stored on our servers.",
+			"Absolutely. Security is our top priority. Every transaction goes through fully encrypted, industry-standard payment gateways, and your private financial details are never saved or stored on our infrastructure.",
 	},
 ];
+
 
 export const featured = [
 	{
@@ -129,34 +131,35 @@ export const socialUrls = [
 ];
 
 export const testimonials = [
-  {
-    id: 1,
-    name: "James Kariuki",
-    title: "Daily Plan",
-    description: "The predictions helped me make smarter decisions. Great for casual bettors like me!"
-  },
-  {
-    id: 2,
-    name: "Jonny_john",
-    title: "Monthly Plan",
-    description: "The expert analysis and detailed stats are game-changers. Highly recommend the Premium plan!"
-  },
-  {
-    id: 3,
-    name: "Alicia Chepkoech",
-    title: "Weekly Plan",
-    description: "As a serious football fan, the Platinum plan provides unmatched predictions!"
-  },
-  {
-    id: 4,
-    name: "Johnson Nekesa",
-    title: "Daily Plan",
-    description: "The real-time updates and in-depth stats are fantastic. Helped me stay ahead of the game!"
-  },
-  {
-    id: 5,
-    name: "sarah-nduku",
-    title: "Monthly Plan",
-    description: "Worth every penny! The predictions are accurate, and the insights are top-notch."
-  }
-]
+	{
+	  id: 1,
+	  name: "James Kariuki",
+	  title: "Daily Plan",
+	  description: "These tips completely changed how I look at daily games. Perfect for casual punters!"
+	},
+	{
+	  id: 2,
+	  name: "Jonny_john",
+	  title: "Monthly Plan",
+	  description: "The deep analytics and expert breakdowns are total game-changers. The Monthly tier is an absolute must!"
+	},
+	{
+	  id: 3,
+	  name: "Alicia Chepkoech",
+	  title: "Weekly Plan",
+	  description: "For anyone serious about football forecasting, this package provides completely unmatched precision!"
+	},
+	{
+	  id: 4,
+	  name: "Johnson Nekesa",
+	  title: "Daily Plan",
+	  description: "The live match updates and historical stats are incredible. It makes staying ahead of the game so easy!"
+	},
+	{
+	  id: 5,
+	  name: "sarah-nduku",
+	  title: "Monthly Plan",
+	  description: "Value for money at its best! The selections are highly consistent and the data quality is top-tier."
+	}
+];
+  
