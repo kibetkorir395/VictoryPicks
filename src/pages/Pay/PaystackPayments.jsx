@@ -14,7 +14,7 @@ import Swal from 'sweetalert2';
 // Paystack API Configuration
 const PAYMENT_API_BASE = "https://payment-api-production-ea97.up.railway.app/api"; 
 
-export default function Subscription() {
+export default function PaystackPayments() {
   const [user, setUser] = useRecoilState(userState);
   const [loading, setLoading] = useState(false);
   const [paying, setPaying] = useState(false);

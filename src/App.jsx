@@ -26,6 +26,7 @@ import ProtectedAdminRoute from './utils/ProtectedAdminRoute';
 import { checkSubscriptionStatus, checkLocality, getUserPlatform } from './utils/subscription';
 import KoraPayments from './pages/Pay/KoraPayments';
 import PaystackPayments from './pages/Pay/PaystackPayments';
+import FlutterwavePayments from './pages/Pay/FlutterwavePayments';
 import Notification from './components/Notification/Notification';
 import InstallPrompt from './components/InstallPrompt/InstallPrompt';
 
@@ -94,7 +95,7 @@ function App() {
           <Notification />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="subscribe" element={<ProtectedRoute>{currency === "KES" ? <PaystackPayments /> : <KoraPayments />}</ProtectedRoute>} />
+            <Route path="subscribe" element={<ProtectedRoute>{/*currency === "KES" ? <PaystackPayments /> : <KoraPayments />*/<FlutterwavePayments />}</ProtectedRoute>} />
             <Route path="about" element={<About />} />
             <Route path="login" element={<ProtectedAuthRoute><Login /></ProtectedAuthRoute>} />
             <Route path="register" element={<ProtectedAuthRoute><Register /></ProtectedAuthRoute>} />
