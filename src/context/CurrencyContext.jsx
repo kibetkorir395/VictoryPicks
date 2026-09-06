@@ -1,9 +1,20 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 
 const CURRENCIES = {
-  KES: { symbol: 'KSh', code: 'KES', rate: 1, label: 'KES' },
-  NGN: { symbol: '₦', code: 'NGN', rate: 10.8, label: 'NGN' },
-  ZAR: { symbol: 'R', code: 'ZAR', rate: 0.12, label: 'ZAR' }
+KES: { symbol: 'KSH', code: 'KES', rate: 1, label: 'KES' },
+  NGN: { symbol: '₦', code: 'NGN', rate: 11.63, label: 'NGN' },
+  GHS: { symbol: 'GH₵', code: 'GHS', rate: 0.11, label: 'GHS' },
+  ZAR: { symbol: 'R', code: 'ZAR', rate: 0.14, label: 'ZAR' },
+  UGX: { symbol: 'USh', code: 'UGX', rate: 28.5, label: 'UGX' },
+  TZS: { symbol: 'TSh', code: 'TZS', rate: 20.2, label: 'TZS' },
+  RWF: { symbol: 'FRw', code: 'RWF', rate: 10.1, label: 'RWF' },
+  ZMW: { symbol: 'ZK', code: 'ZMW', rate: 0.21, label: 'ZMW' },
+  MWK: { symbol: 'MK', code: 'MWK', rate: 13.2, label: 'MWK' },
+  XOF: { symbol: 'CFA', code: 'XOF', rate: 4.6, label: 'XOF' }, // Covers BF, CI, SN
+  XAF: { symbol: 'FCFA', code: 'XAF', rate: 4.6, label: 'XAF' },
+  USD: { symbol: '$', code: 'USD', rate: 0.0076, label: 'USD' },
+  GBP: { symbol: '£', code: 'GBP', rate: 0.006, label: 'GBP' },
+  EUR: { symbol: '€', code: 'EUR', rate: 0.007, label: 'EUR' }
 };
 
 const STORAGE_KEY = 'flash_currency';
@@ -12,7 +23,20 @@ const STORAGE_KEY = 'flash_currency';
 const CURRENCY_CONFIG = {
   KE: { currency: 'KES' },
   NG: { currency: 'NGN' },
-  ZAR: { currency: 'ZAR' },
+  GH: { currency: 'GHS' },
+  ZA: { currency: 'ZAR' },
+  UG: { currency: 'UGX' },
+  TZ: { currency: 'TZS' },
+  RW: { currency: 'RWF' },
+  ZM: { currency: 'ZMW' },
+  MW: { currency: 'MWK' },
+  BF: { currency: 'XOF' },
+  CI: { currency: 'XOF' },
+  SN: { currency: 'XOF' },
+  CM: { currency: 'XAF' },
+  US: { currency: 'USD' },
+  GB: { currency: 'GBP' },
+  EU: { currency: 'EUR' },
   default: { currency: 'KES' },
 };
 
