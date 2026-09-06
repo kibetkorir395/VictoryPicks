@@ -94,12 +94,20 @@ export default function FlutterwavePayments() {
         handleUpgrade()
       } else {
         // Fraud prevention triggered
-        alert("Payment verification failed! Data mismatch detected.");
+        setNotification({
+          isVisible: true,
+          type: 'error',
+          message: "Payment verification failed! Data mismatch detected.",
+        });
       }
       closePaymentModal();
     },
     onClose: () => {
-        //handleUpgrade();
+      setNotification({
+        isVisible: true,
+        type: 'error',
+        message: "You cancelled the payment.",
+      });
         setLoading(false)
     },
   };
