@@ -95,7 +95,7 @@ function App() {
           <Notification />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="subscribe" element={<ProtectedRoute>{/*currency === "KES" ? <PaystackPayments /> : <KoraPayments />*/<FlutterwavePayments />}</ProtectedRoute>} />
+            <Route path="subscribe" element={<ProtectedRoute>{currency === "KES" ? <PaystackPayments /> : (currency === "NGN" ? <KoraPayments /> : <FlutterwavePayments />)}</ProtectedRoute>} />
             <Route path="about" element={<About />} />
             <Route path="login" element={<ProtectedAuthRoute><Login /></ProtectedAuthRoute>} />
             <Route path="register" element={<ProtectedAuthRoute><Register /></ProtectedAuthRoute>} />

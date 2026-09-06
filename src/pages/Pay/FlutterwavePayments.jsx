@@ -40,9 +40,9 @@ export default function FlutterwavePayments() {
   }, [location]);
 
   const config = {
-    public_key: 'FLWPUBK-38aac8e4c9002a02b46496e8ef4b32ab-X',//import.meta.env.VITE_FLW_PUBLIC_KEY,
+    public_key: import.meta.env.VITE_FLW_PUBLIC_KEY,
     tx_ref: new Date().getTime().toString(),//`tx-${Date.now()}`, // Must be unique for every transaction
-    amount: 10,//data != null ? data.price : convertPrice(subscription.price),
+    amount: data != null ? data.price : convertPrice(subscription.price),
     currency: currency,
     payment_options: 'card, mobilemoney, ussd, banktransfer',
     customer: {
@@ -83,6 +83,19 @@ export default function FlutterwavePayments() {
     text: `Pay ${displaySymbol} ${data != null ? data.price : convertPrice(subscription.price)} Now`,
     callback: (response) => {
       console.log(response);
+      // 2. STAGEFRONT VERIFICATION CHECKPOINTS
+      // Do NOT trust the response blindly. Cross-check your parameters:
+      const isStatusValid = response.status === "successful" //|| response.status === "completed";
+      const isAmountValid = Number(response.amount) === data.price;
+      const isCurrencyValid = response.currency === currency;
+      const hasTxRef = response.tx_ref === config.tx_ref;
+
+      if (isStatusValid && isAmountValid && isCurrencyValid && hasTxRef) {
+        handleUpgrade()
+      } else {
+        // Fraud prevention triggered
+        alert("Payment verification failed! Data mismatch detected.");
+      }
       closePaymentModal();
     },
     onClose: () => {
