@@ -84,7 +84,7 @@ export default function KoraPayments() {
       const customerEmail = user ? user.email : 'coongames8@gmail.com';
 
       window.Korapay.initialize({
-        key: 'pk_live_v3G6gawdvs1ugJmqo3cfQaGJS5njbJTrjLyxT2gB',
+        key: import.meta.env.VITE_KORA_PK_KEY,
         reference: new Date().getTime().toString(),
         amount,
         currency: payCurrency,
