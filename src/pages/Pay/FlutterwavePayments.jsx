@@ -82,7 +82,6 @@ export default function FlutterwavePayments() {
     ...config,
     text: `Pay ${displaySymbol} ${data != null ? data.price : convertPrice(subscription.price)} Now`,
     callback: (response) => {
-      console.log(response);
       // 2. STAGEFRONT VERIFICATION CHECKPOINTS
       // Do NOT trust the response blindly. Cross-check your parameters:
       const isStatusValid = response.status === "successful" //|| response.status === "completed";

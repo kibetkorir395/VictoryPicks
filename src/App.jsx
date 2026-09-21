@@ -55,7 +55,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    checkSubscriptionStatus(user, setNotification);
+    checkSubscriptionStatus(user, setNotification, setUser);
     if (user && locality) {
       checkLocality(user, locality);
       const device = getUserPlatform()

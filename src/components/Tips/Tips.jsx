@@ -43,6 +43,13 @@ export default function Tips() {
 		tabBoxRef.current.scrollLeft += scrollAmount;
 	};
 
+	const SUBSCRIPTION_ACCESS = {
+		Daily: 1,      // today + 0 future? or today + 1?
+		Weekly: 7,
+		Monthly: 30,
+		// add more plans as needed
+	  };
+
 	const formatDate = (dateString) => {
 		const date = new Date(dateString);
 		return date.toLocaleDateString("en-US");
@@ -108,7 +115,7 @@ export default function Tips() {
 		};
 	}, [isDragging, startX, scrollLeft]);
 
-	useEffect(() => {
+	/*useEffect(() => {
 		let dates = [];
 		const today = new Date();
 
@@ -125,7 +132,57 @@ export default function Tips() {
 
 	useEffect(() => {
 		days && setCurrentDate(days[days.length - 1]);
-	}, [days]);
+	}, [days]);*/
+
+	useEffect(() => {
+		const today = new Date();
+		let totalDays;
+		let startDate;
+	  
+		if (user?.isPremium && user.subscription) {
+		  // ----- Premium user: show dates based on plan -----
+		  const subDate = user.subscription.subDate
+			? new Date(user.subscription.subDate)
+			: today;
+	  
+		  const plan = user.subscription.plan || 'Daily';
+		  totalDays = SUBSCRIPTION_ACCESS[plan] || 1;
+	  
+		  // Daily plan: show past days too (like free users), ending today.
+		  // Other plans: start from today (or subDate if in the future) going forward.
+		  if (plan === 'Daily') {
+			totalDays = 7
+			startDate = new Date(today);
+			startDate.setDate(startDate.getDate() - (totalDays - 1)); // ends today
+		  } else {
+			startDate = subDate > today ? subDate : today;
+		  }
+		} else {
+		  // ----- Free / unsubscribed user: show last 7 days ending today -----
+		  totalDays = 7;
+		  startDate = new Date(today);
+		  startDate.setDate(startDate.getDate() - (totalDays - 1));
+		}
+	  
+		const dates = [];
+		for (let i = 0; i < totalDays; i++) {
+		  const date = new Date(startDate);
+		  date.setDate(date.getDate() + i);
+		  const year = date.getFullYear();
+		  const month = String(date.getMonth() + 1).padStart(2, '0');
+		  const day = String(date.getDate()).padStart(2, '0');
+		  dates.push(`${year}-${month}-${day}`);
+		}
+	  
+		setDays(dates);
+	  }, [user]);
+
+	  useEffect(() => {
+		if (!days?.length) return;
+		const today = new Date();
+		const todayKey = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+		setCurrentDate(days.includes(todayKey) ? todayKey : days[days.length - 1]);
+	  }, [days]);
 
 	useEffect(() => {
 		if (!tabBoxRef.current) return;
@@ -236,7 +293,9 @@ export default function Tips() {
 									key={index}
 									tip={tip}
 									isAdmin={isAdmin}
-									today={formatDate(days[days.length - 1])}
+									//today={formatDate(days[days.length - 1])}
+									today={formatDate(new Date())}   // M/D/YYYY to match tip.date
+									user={user}
 								/>
 							))}
 				</div>

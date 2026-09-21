@@ -1,22 +1,62 @@
 import { updateUser, updateUserLocality  } from "../firebase";
 
 
-export const checkSubscriptionStatus = (user, setNotification) => {
+/*export const checkSubscriptionStatus = (user, setNotification) => {
   if (!user || !user.isPremium) return;
 
-  const currentTime = new Date();
+  const currentTime = new Date().getTime();
   const previousTime = new Date(user.subscription.subDate);
   const timeDifference = currentTime - previousTime;
 
   const timeLimits = {
-    "Day": 24 * 60 * 60 * 1000,
-    "Weeky": 7 * 24 * 60 * 60 * 1000,
-    "Monthy": 30 * 24 * 60 * 60 * 1000, // Simplified, adjust as needed
-    "Yeary": 365 * 24 * 60 * 60 * 1000
+    "Daily": 24 * 60 * 60 * 1000,
+    "Weekly": 7 * 24 * 60 * 60 * 1000,
+    "Monthly": 30 * 24 * 60 * 60 * 1000, // Simplified, adjust as needed
+    "Yearly": 365 * 24 * 60 * 60 * 1000
   };
 
-  if (timeDifference >= timeLimits[user.subscription.billing]) {
-    updateUser(user.email, false, null, setNotification);
+  if (timeDifference >= timeLimits[user.subscription.plan]) {
+    //updateUser(user.uid, false, null, setNotification);
+  }
+};*/
+
+export const checkSubscriptionStatus = async (user, setNotification, setUser) => {
+  if (!user?.isPremium || !user.subscription?.subDate) return;
+
+  const timeLimits = {
+    Daily:   1  * 24 * 60 * 60 * 1000,
+    Weekly:  7  * 24 * 60 * 60 * 1000,
+    Monthly: 30 * 24 * 60 * 60 * 1000,
+    Yearly:  365 * 24 * 60 * 60 * 1000,
+  };
+
+  const parseSubDate = (str) => {
+    const [datePart, timePart = '00:00'] = str.split('T');
+    const [y, m, d] = datePart.split('-').map(Number);
+    const [hh, mm] = timePart.split(':').map(Number);
+    return new Date(y, m - 1, d, hh || 0, mm || 0, 0);
+  };
+
+  const currentTime = Date.now();                 // ms number
+  const startTime = parseSubDate(user.subscription.subDate).getTime();
+  const timeDifference = currentTime - startTime;
+
+  const plan = user.subscription.plan || user.subscription.billing;
+  const limit = timeLimits[plan];
+
+  if (limit === undefined) {
+    console.warn('Unknown plan:', plan);
+    return;
+  }
+
+  if (timeDifference >= limit) {
+    // Use the correct doc ID — email or uid, whichever your users collection uses
+    await updateUser(user.email, false, null, setNotification);
+
+    // Update local state so UI reacts immediately
+    if (setUser) {
+      setUser(prev => ({ ...prev, isPremium: false, subscription: null }));
+    }
   }
 };
 

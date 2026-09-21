@@ -59,9 +59,9 @@ export default function ListUsers() {
         case 'email-desc':
           return (b.email || '').localeCompare(a.email || '');
         case 'sub-desc':
-          return new Date(b.subDate || 0) - new Date(a.subDate || 0);
+          return new Date(b.subscription?.subDate || 0) - new Date(a.subscription?.subDate || 0);
         case 'sub-asc':
-          return new Date(a.subDate || 0) - new Date(b.subDate || 0);
+          return new Date(a.subscription?.subDate || 0) - new Date(b.subscription?.subDate || 0);
         case 'withLocality': 
           const aHasLoc = a.locality ? 0 : 1;
           const bHasLoc = b.locality ? 0 : 1;

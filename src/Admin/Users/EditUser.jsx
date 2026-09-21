@@ -41,7 +41,7 @@ export default function EditUser() {
             setUsername(user.username)
             setIsPremium(user.isPremium)
             setSubscription(user.subscription || null)
-            user.subDate && setSubDate(toDateTimeLocal(user.subDate))
+            user.subscription && setSubDate(toDateTimeLocal(user.subscription.subDate)) 
         }
     }, [user]);
 
@@ -56,8 +56,11 @@ export default function EditUser() {
         const usercollref = doc(db,'users', user.email)
         updateDoc(usercollref,{
           isPremium, 
-          subscription: isPremium  ? subscription : null,
-          subDate           
+          subscription: !isPremium  ? null : {
+            subDate,
+            plan: subscription?.plan,
+            billing: subscription?.plan === 'Daily' ? "Day" : subscription?.plan + 'ly'
+          },          
         } ).then(response => {
             setNotification({
                 isVisible: true,
