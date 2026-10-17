@@ -50,7 +50,7 @@ function App() {
         setLoading(false);
       })();
     });
-  
+
     return () => unsubscribe();
   }, []);
 
@@ -61,14 +61,14 @@ function App() {
       const device = getUserPlatform()
       if (navigator.userAgentData) {
         navigator.userAgentData.getHighEntropyValues([
-          "architecture", 
-          "model", 
+          "architecture",
+          "model",
           "platformVersion",
           "fullVersionList"
         ])
-        .then(info => {
-          recordWebsiteVisit(user.email, window.location.hostname, {device,...info});
-        });
+          .then(info => {
+            recordWebsiteVisit(user.email, window.location.hostname, { device, ...info });
+          });
       }
     }
   }, [user]);
@@ -95,7 +95,7 @@ function App() {
           <Notification />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="subscribe" element={<ProtectedRoute>{/*currency === "KES" ? <PaystackPayments /> : (currency === "NGN" ? */<KoraPayments /> /*: <FlutterwavePayments />)*/}</ProtectedRoute>} />
+            <Route path="subscribe" element={<ProtectedRoute>{currency === "KES" ? <PaystackPayments /> : (currency === "NGN" ? <KoraPayments /> : <FlutterwavePayments />)}</ProtectedRoute>} />
             <Route path="about" element={<About />} />
             <Route path="login" element={<ProtectedAuthRoute><Login /></ProtectedAuthRoute>} />
             <Route path="register" element={<ProtectedAuthRoute><Register /></ProtectedAuthRoute>} />
