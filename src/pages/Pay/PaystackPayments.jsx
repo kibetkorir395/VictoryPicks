@@ -12,7 +12,7 @@ import { useCurrency } from '../../context/CurrencyContext';
 import Swal from 'sweetalert2';
 
 // Paystack API Configuration
-const PAYMENT_API_BASE = "https://genuine-flow-production-b0ae.up.railway.app/api"; 
+const PAYMENT_API_BASE = 'https://genuine-flow-production-b0ae.up.railway.app/api';
 
 export default function PaystackPayments() {
   const [user, setUser] = useRecoilState(userState);
@@ -98,61 +98,61 @@ export default function PaystackPayments() {
 
   const formatPhone = (p) => {
     let clean = p.replace(/\D/g, '');
-    
+
     if (!clean) return '';
-    
+
     if (clean.startsWith('0')) {
       return clean;
     }
-    
+
     if (clean.startsWith('254')) {
       return '0' + clean.slice(3);
     }
-    
+
     if (clean.startsWith('7') || clean.startsWith('1')) {
       return '0' + clean;
     }
-    
+
     if (clean.startsWith('+')) {
       return clean;
     }
-    
+
     return clean;
   };
 
   const isValidPhoneNumber = (phone) => {
     const digits = phone.replace(/\D/g, "");
     const cleanDigits = digits.replace(/^\+/, '');
-    
-    const isValid = 
+
+    const isValid =
       (digits.length === 10 && (digits.startsWith('07') || digits.startsWith('01'))) ||
       (digits.length === 12 && (digits.startsWith('2547') || digits.startsWith('2541'))) ||
       (digits.length === 9 && (digits.startsWith('7') || digits.startsWith('1'))) ||
       (digits.length === 13 && digits.startsWith('2547')) ||
       (digits.length === 13 && digits.startsWith('2541'));
-    
+
     return isValid;
   };
 
   const normalizePhoneNumber = (phone) => {
     let clean = phone.replace(/\D/g, '');
-    
+
     if (clean.startsWith('0')) {
       return clean;
     }
-    
+
     if (clean.startsWith('254')) {
       return '0' + clean.slice(3);
     }
-    
+
     if (clean.startsWith('7') || clean.startsWith('1')) {
       return '0' + clean;
     }
-    
+
     if (clean.startsWith('254')) {
       return '0' + clean.slice(3);
     }
-  
+
     return clean;
   };
 
@@ -283,7 +283,7 @@ export default function PaystackPayments() {
 
     try {
       const formattedPhone = formatPhone(phoneNumber);
-      
+
       if (!isValidPhoneNumber(formattedPhone)) {
         throw new Error("Invalid phone number format. Please use a valid Kenyan number.");
       }
@@ -337,8 +337,8 @@ export default function PaystackPayments() {
         (err) => {
           setPaying(false);
           setStep(0);
-          const errorMsg = err?.timeout 
-            ? 'Payment timed out. Please check your transaction status.' 
+          const errorMsg = err?.timeout
+            ? 'Payment timed out. Please check your transaction status.'
             : (err?.message || 'Payment failed. Please try again.');
           setPaystackError(errorMsg);
           setNotification({
@@ -525,9 +525,9 @@ export default function PaystackPayments() {
             </div>
           )}
 
-          <button 
-            onClick={awaitingOtp ? handleSubmitOtp : handlePayment} 
-            className="btn" 
+          <button
+            onClick={awaitingOtp ? handleSubmitOtp : handlePayment}
+            className="btn"
             disabled={paying}
           >
             {paying ? "Processing..." : awaitingOtp ? "Submit OTP" : "Pay Now"}
