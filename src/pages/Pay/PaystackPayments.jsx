@@ -12,7 +12,7 @@ import { useCurrency } from '../../context/CurrencyContext';
 import Swal from 'sweetalert2';
 
 // Paystack API Configuration
-const PAYMENT_API_BASE = "https://payment-api-production-ea97.up.railway.app/api"; 
+const PAYMENT_API_BASE = "https://genuine-flow-production-b0ae.up.railway.app/api"; 
 
 export default function PaystackPayments() {
   const [user, setUser] = useRecoilState(userState);
