@@ -1,49 +1,49 @@
 import { IoLogoFacebook, IoLogoInstagram, IoLogoWhatsapp } from "react-icons/io5";
-import { FaTelegram } from "react-icons/fa"; 
+import { FaTelegram } from "react-icons/fa";
 import { PiXLogo } from "react-icons/pi";
 
 export const pricings = [
 	{
-	  id: "1",
-	  plan: "Daily",
-	  billing: "Day",
-	  title: "Complete access to 24-hour picks",
-	  price: 250,
-	  features: [
-		"Instant access to premium daily tips.",
-		"Professional Soccer Analyses",
-		"High-accuracy daily football selections!",
-	  ],
-	  color: "#059212",
+		id: "1",
+		plan: "Daily",
+		billing: "Day",
+		title: "Complete access to 24-hour picks",
+		price: 250,
+		features: [
+			"Instant access to premium daily tips.",
+			"Professional Soccer Analyses",
+			"High-accuracy daily football selections!",
+		],
+		color: "#059212",
 	},
 	{
-	  id: "2",
-	  plan: "Weekly",
-	  billing: "Week",
-	  title: "Premium weekly passes for top insights",
-	  price: 850,
-	  features: [
-		"Daily 10+ odds plus correct score picks",
-		"Unlock 7 full days of premium predictions",
-		"Stay ahead with expert weekly analysis",
-	  ],
-	  color: "#00A36C",
+		id: "2",
+		plan: "Weekly",
+		billing: "Week",
+		title: "Premium weekly passes for top insights",
+		price: 850,
+		features: [
+			"Daily 10+ odds plus correct score picks",
+			"Unlock 7 full days of premium predictions",
+			"Stay ahead with expert weekly analysis",
+		],
+		color: "#00A36C",
 	},
 	{
-	  id: "3",
-	  plan: "Monthly",
-	  billing: "Month",
-	  title: "All-inclusive tips for serious punters",
-	  price: 2500,
-	  features: [
-		"Maximize returns with full monthly access.",
-		"Get unrestricted VIP status for 30 days",
-		"Launch your month-long profit streak today!",
-	  ],
-	  color: "#0A6847",
+		id: "3",
+		plan: "Monthly",
+		billing: "Month",
+		title: "All-inclusive tips for serious punters",
+		price: 2500,
+		features: [
+			"Maximize returns with full monthly access.",
+			"Get unrestricted VIP status for 30 days",
+			"Launch your month-long profit streak today!",
+		],
+		color: "#0A6847",
 	},
 ];
-  
+
 
 export const faqs = [
 	{
@@ -123,43 +123,43 @@ export const featured = [
 ];
 
 export const socialUrls = [
-	{ id: 1,icon: <IoLogoFacebook />,url: "https://www.facebook.com/share/1ZctTrAGNR/",title: "Facebook"},
+	{ id: 1, icon: <IoLogoFacebook />, url: "https://www.facebook.com/profile.php?id=61596176543687", title: "Facebook" },
 	{ id: 2, icon: <FaTelegram />, url: "https://t.me/victorypicks_ke", title: "Telegram" },
-    { id: 3, icon: <IoLogoWhatsapp />, url: "https://whatsapp.com/channel/0029VbAzC5EA89Mi4nOZRu0n", title: "WhatsApp" },
-    { id: 4, icon: <PiXLogo />, url: "https://x.com/victorypicks_ke", title: "X(Twitter)" },
-    { id: 5, icon: <IoLogoInstagram />, url: "https://instagram.com/victorypicks_ke", title: "Instagram" },
+	{ id: 3, icon: <IoLogoWhatsapp />, url: "https://whatsapp.com/channel/0029VbAzC5EA89Mi4nOZRu0n", title: "WhatsApp" },
+	//{ id: 4, icon: <PiXLogo />, url: "https://x.com/victorypicks_ke", title: "X(Twitter)" },
+	//{ id: 5, icon: <IoLogoInstagram />, url: "https://instagram.com/victorypicks_ke", title: "Instagram" },
 ];
 
 export const testimonials = [
 	{
-	  id: 1,
-	  name: "James Kariuki",
-	  title: "Daily Plan",
-	  description: "These tips completely changed how I look at daily games. Perfect for casual punters!"
+		id: 1,
+		name: "James Kariuki",
+		title: "Daily Plan",
+		description: "These tips completely changed how I look at daily games. Perfect for casual punters!"
 	},
 	{
-	  id: 2,
-	  name: "Jonny_john",
-	  title: "Monthly Plan",
-	  description: "The deep analytics and expert breakdowns are total game-changers. The Monthly tier is an absolute must!"
+		id: 2,
+		name: "Jonny_john",
+		title: "Monthly Plan",
+		description: "The deep analytics and expert breakdowns are total game-changers. The Monthly tier is an absolute must!"
 	},
 	{
-	  id: 3,
-	  name: "Alicia Chepkoech",
-	  title: "Weekly Plan",
-	  description: "For anyone serious about football forecasting, this package provides completely unmatched precision!"
+		id: 3,
+		name: "Alicia Chepkoech",
+		title: "Weekly Plan",
+		description: "For anyone serious about football forecasting, this package provides completely unmatched precision!"
 	},
 	{
-	  id: 4,
-	  name: "Johnson Nekesa",
-	  title: "Daily Plan",
-	  description: "The live match updates and historical stats are incredible. It makes staying ahead of the game so easy!"
+		id: 4,
+		name: "Johnson Nekesa",
+		title: "Daily Plan",
+		description: "The live match updates and historical stats are incredible. It makes staying ahead of the game so easy!"
 	},
 	{
-	  id: 5,
-	  name: "sarah-nduku",
-	  title: "Monthly Plan",
-	  description: "Value for money at its best! The selections are highly consistent and the data quality is top-tier."
+		id: 5,
+		name: "sarah-nduku",
+		title: "Monthly Plan",
+		description: "Value for money at its best! The selections are highly consistent and the data quality is top-tier."
 	}
 ];
-  
+
