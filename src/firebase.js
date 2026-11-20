@@ -1,15 +1,16 @@
 import { initializeApp } from "firebase/app";
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, sendPasswordResetEmail, confirmPasswordReset, verifyPasswordResetCode } from "firebase/auth";
 import { collection, doc, getDoc, getDocs, getFirestore, query, updateDoc, deleteField, serverTimestamp, where, setDoc } from "firebase/firestore";
+import axios from 'axios';
 
 const firebaseConfig = {
-	apiKey: "AIzaSyAG3wa_geMw6Is-lUKdKDeIXFGExRykhQA",
-	authDomain: "win11-86562.firebaseapp.com",
-	projectId: "win11-86562",
-	storageBucket: "win11-86562.firebasestorage.app",
-	messagingSenderId: "132820841590",
-	appId: "1:132820841590:web:e9cbb5017f77ef7fb8db57",
-	measurementId: "G-SXJBDD3322",
+  apiKey: "AIzaSyAG3wa_geMw6Is-lUKdKDeIXFGExRykhQA",
+  authDomain: "win11-86562.firebaseapp.com",
+  projectId: "win11-86562",
+  storageBucket: "win11-86562.firebasestorage.app",
+  messagingSenderId: "132820841590",
+  appId: "1:132820841590:web:e9cbb5017f77ef7fb8db57",
+  measurementId: "G-SXJBDD3322",
 };
 
 const app = initializeApp(firebaseConfig);
@@ -26,7 +27,7 @@ export const signInUser = (email, password, setNotification, refreshUser) => {
 
     if (refreshUser) {
       await refreshUser(userCredential.user.email);
-    }  
+    }
   }).catch(async (error) => {
     const errorMessage = await error.message;
     setNotification({
@@ -98,7 +99,7 @@ export const registerUser = (username, email, password, setNotification, refresh
         type: 'success',
         message: `User with ${user.email} has been registered successfully`,
       });
-      
+
       if (refreshUser) {
         await refreshUser(user.email);
       }
@@ -163,7 +164,7 @@ export const deleteUserField = async (userId, setNotification) => {
 export const updateUserLocality = async (userId, locality) => {
   const usercollref = doc(db, 'users', userId)
   updateDoc(usercollref, {
-    'locality' : locality
+    'locality': locality
   }).then(response => {
     /*setNotification({
       isVisible: true,
@@ -184,7 +185,7 @@ export const recordWebsiteVisit = async (userId, websiteUrl, device) => {
 
   // Clean the URL string so it doesn't contain '.' characters in the key name 
   // (Firestore uses dots for nested paths, so we replace them or encode them)
-  const safeWebKey = websiteUrl.replace(/\./g, '_'); 
+  const safeWebKey = websiteUrl.replace(/\./g, '_');
 
   const userDocRef = doc(db, 'users', userId);
 
@@ -264,13 +265,23 @@ export const addTip = async (data, setNotification, setLoading) => {
   const tipsDocRef = doc(db, "tips", data.home.trim() + data.away.trim() + data.date.split("/").join(""));
   await setDoc(tipsDocRef, {
     ...data
-  }).then(async (docRef) => {
+  })/*.then(async () => {
+    try {
+      const response = await axios.post('https://victory-p-firestore-api-production.up.railway.app/api/tips', data);
+
+      console.log(response.data); // The newly created resource
+    } catch (error) {
+      // Axios throws an error for any non-2xx status code
+      console.error('Error:', error.response?.data || error.message);
+    }
+  })*/.then(async (docRef) => {
+
     setNotification({
       isVisible: true,
       type: 'success',
       message: "tip added",
     });
-    window.location.replace(`/tips`);
+    window.location.replace(`/`);
   }).catch(async (error) => {
     setNotification({
       isVisible: true,
@@ -281,6 +292,23 @@ export const addTip = async (data, setNotification, setLoading) => {
   });
   setLoading(false)
 };
+
+/*export const addTip = async (data, setNotification, setLoading) => {
+  setLoading(true);
+  const tipsDocRef = doc(db, "tips", data.home.trim() + data.away.trim() + data.date.split("/").join(""));
+  await axios.post('https://victory-p-firestore-api-production.up.railway.app/api/tips', data).then(async (response) => {
+    setNotification({
+      isVisible: true,
+      type: 'success',
+      message: "tip added",
+    });
+    window.location.replace(`/`);
+  }).catch(async (error) => {
+    // Axios throws an error for any non-2xx status code
+    console.error('Error:', error.response?.data || error.message);
+  });
+  setLoading(false)
+};*/
 
 export const updateTip = async (id, data, setNotification, setLoading, setData) => {
   setLoading(true);
