@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { NavLink, useNavigate, useSearchParams } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import './Auth.scss';
 import { getUser, signInUser, sendPasswordReset, confirmReset } from '../../firebase';
 import AppHelmet from '../AppHelmet';
 import ScrollToTop from '../ScrollToTop';
 import { notificationState, userState } from '../../recoil/atoms';
-import { useSetRecoilState , useRecoilState } from 'recoil';
+import { useSetRecoilState, useRecoilState } from 'recoil';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
@@ -19,7 +19,9 @@ export const Login = () => {
   const setNotification = useSetRecoilState(notificationState);
   const [searchParams] = useSearchParams();
   const [user, setUser] = useRecoilState(userState);
+
   const navigate = useNavigate();
+  const location = useLocation(); // 1. Initialize useLocation
 
   const hasResetCode = !!searchParams.get('oobCode');
 
@@ -32,8 +34,19 @@ export const Login = () => {
     if (email && password) {
       const refreshUser = async (email) => {
         await getUser(email, setUser);
-        navigate("/");
-    };
+
+        // 2. Check if they were trying to reach /subscribe
+        if (location.state?.redirectTo === '/subscribe') {
+          navigate('/subscribe', {
+            replace: true,
+            state: location.state.originalState, // Restores { from, subscription }
+          });
+        } else {
+          // 3. Otherwise go home
+          navigate('/', { replace: true });
+        }
+      };
+
       signInUser(email, password, setNotification, refreshUser);
     } else {
       setNotification({
